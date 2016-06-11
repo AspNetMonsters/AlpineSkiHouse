@@ -36,9 +36,12 @@ namespace AlpineSkiHouse
 
             builder.AddEnvironmentVariables();
             Configuration = builder.Build();
+            CurrentEnvironment = env;
         }
 
         public IConfigurationRoot Configuration { get; }
+
+        public IHostingEnvironment CurrentEnvironment {get ;}
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
@@ -55,11 +58,14 @@ namespace AlpineSkiHouse
 
             services.AddMvc();
 
-            services.Configure<MvcOptions>(options =>
+            if (!CurrentEnvironment.IsDevelopment())
             {
-                options.Filters.Add(new RequireHttpsAttribute());
-            });
-
+                services.Configure<MvcOptions>(options =>
+                {
+                    options.Filters.Add(new RequireHttpsAttribute());
+                });
+            }
+            
             // Add application services.
             services.AddTransient<IEmailSender, AuthMessageSender>();
             services.AddTransient<ISmsSender, AuthMessageSender>();
