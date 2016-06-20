@@ -11,5 +11,18 @@ namespace AlpineSkiHouse.Models.AccountViewModels
         [Required]
         [EmailAddress]
         public string Email { get; set; }
+
+        [Required]
+        [MaxLength(70)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [MaxLength(70)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Required]
+        [Display(Name = "What year were you born?")]
+        public int? BirthYear { get; set; }
     }
 }

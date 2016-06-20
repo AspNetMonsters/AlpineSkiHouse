@@ -188,7 +188,16 @@ namespace AlpineSkiHouse.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
+
+                return View("ExternalLoginConfirmation",
+                    new ExternalLoginConfirmationViewModel
+                    {
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName
+                    });
             }
         }
 
@@ -199,6 +208,19 @@ namespace AlpineSkiHouse.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> ExternalLoginConfirmation(ExternalLoginConfirmationViewModel model, string returnUrl = null)
         {
+            //TODO: Move to a custom validator
+            const int minBirthYear = 1900;
+            var maxBirthYear = DateTime.Today.Year;
+            if (model != null && !model.BirthYear.HasValue)                
+            {
+                ModelState.AddModelError(nameof(ExternalLoginConfirmationViewModel.BirthYear), "Birth year is required");
+            } else if (model != null && 
+                (model.BirthYear < minBirthYear  || model.BirthYear > maxBirthYear))
+            {
+                ModelState.AddModelError(nameof(ExternalLoginConfirmationViewModel.BirthYear), $"Birth year must be between {minBirthYear} and {maxBirthYear}");
+            }
+            
+
             if (ModelState.IsValid)
             {
                 // Get the information about the user from the external login provider
@@ -207,7 +229,14 @@ namespace AlpineSkiHouse.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    BirthYear = model.BirthYear.Value
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
