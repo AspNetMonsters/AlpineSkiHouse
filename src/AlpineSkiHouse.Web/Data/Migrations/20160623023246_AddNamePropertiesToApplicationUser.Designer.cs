@@ -8,8 +8,8 @@ using AlpineSkiHouse.Data;
 namespace AlpineSkiHouse.Data.Migrations
 {
     [DbContext(typeof(ApplicationUserContext))]
-    [Migration("20160619181515_AddUserNameAndBirthYear")]
-    partial class AddUserNameAndBirthYear
+    [Migration("20160623023246_AddNamePropertiesToApplicationUser")]
+    partial class AddNamePropertiesToApplicationUser
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -22,8 +22,6 @@ namespace AlpineSkiHouse.Data.Migrations
                     b.Property<string>("Id");
 
                     b.Property<int>("AccessFailedCount");
-
-                    b.Property<int>("BirthYear");
 
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();

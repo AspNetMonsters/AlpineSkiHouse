@@ -20,9 +20,5 @@ namespace AlpineSkiHouse.Models.AccountViewModels
         [MaxLength(70)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
-
-        [Required]
-        [Display(Name = "What year were you born?")]
-        public int? BirthYear { get; set; }
     }
 }

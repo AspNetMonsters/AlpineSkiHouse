@@ -15,8 +15,5 @@ namespace AlpineSkiHouse.Models
 
         [MaxLength(70)]
         public string LastName { get; set; }
-        
-        [Required]
-        public int BirthYear { get; set; }
     }
 }

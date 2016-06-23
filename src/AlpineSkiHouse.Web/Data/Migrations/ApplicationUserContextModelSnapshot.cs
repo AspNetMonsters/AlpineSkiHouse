@@ -22,8 +22,6 @@ namespace AlpineSkiHouse.Data.Migrations
 
                     b.Property<int>("AccessFailedCount");
 
-                    b.Property<int>("BirthYear");
-
                     b.Property<string>("ConcurrencyStamp")
                         .IsConcurrencyToken();
 
