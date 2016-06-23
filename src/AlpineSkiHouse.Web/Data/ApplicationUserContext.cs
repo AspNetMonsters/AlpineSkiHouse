@@ -8,9 +8,12 @@ using AlpineSkiHouse.Models;
 
 namespace AlpineSkiHouse.Data
 {
-    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
+    /// <summary>
+    /// Information related to application user profiles, user roles, user claims and user tokens
+    /// </summary>
+    public class ApplicationUserContext : IdentityDbContext<ApplicationUser>
     {
-        public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
+        public ApplicationUserContext(DbContextOptions<ApplicationUserContext> options)
             : base(options)
         {
         }

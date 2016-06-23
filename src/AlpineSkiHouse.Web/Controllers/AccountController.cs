@@ -188,7 +188,16 @@ namespace AlpineSkiHouse.Controllers
                 ViewData["ReturnUrl"] = returnUrl;
                 ViewData["LoginProvider"] = info.LoginProvider;
                 var email = info.Principal.FindFirstValue(ClaimTypes.Email);
-                return View("ExternalLoginConfirmation", new ExternalLoginConfirmationViewModel { Email = email });
+                var lastName = info.Principal.FindFirstValue(ClaimTypes.Surname);
+                var firstName = info.Principal.FindFirstValue(ClaimTypes.GivenName);
+
+                return View("ExternalLoginConfirmation",
+                    new ExternalLoginConfirmationViewModel
+                    {
+                        Email = email,
+                        FirstName = firstName,
+                        LastName = lastName
+                    });
             }
         }
 
@@ -207,7 +216,14 @@ namespace AlpineSkiHouse.Controllers
                 {
                     return View("ExternalLoginFailure");
                 }
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser
+                {
+                    UserName = model.Email,
+                    Email = model.Email,
+                    FirstName = model.FirstName,
+                    LastName = model.LastName,
+                    PhoneNumber = model.PhoneNumber
+                };
                 var result = await _userManager.CreateAsync(user);
                 if (result.Succeeded)
                 {
