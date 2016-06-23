@@ -20,5 +20,10 @@ namespace AlpineSkiHouse.Models.AccountViewModels
         [MaxLength(70)]
         [Display(Name = "Last Name")]
         public string LastName { get; set; }
+
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
+
     }
 }
