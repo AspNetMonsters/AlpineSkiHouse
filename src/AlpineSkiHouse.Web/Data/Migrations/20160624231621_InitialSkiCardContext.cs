@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Metadata;
 
+namespace AlpineSkiHouse.Data.Migrations
 {
     public partial class InitialSkiCardContext : Migration
     {
