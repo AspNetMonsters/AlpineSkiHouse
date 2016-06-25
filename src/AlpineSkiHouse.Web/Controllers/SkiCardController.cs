@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Identity;
 using AlpineSkiHouse.Data;
@@ -16,8 +14,8 @@ namespace AlpineSkiHouse.Web.Controllers
     [Authorize]
     public class SkiCardController : Controller
     {
-        private SkiCardContext _skiCardContext;
-        private UserManager<ApplicationUser> _userManager;
+        private readonly SkiCardContext _skiCardContext;
+        private readonly UserManager<ApplicationUser> _userManager;
 
         public SkiCardController(SkiCardContext skiCardContext, UserManager<ApplicationUser> userManager)
         {
@@ -57,6 +55,9 @@ namespace AlpineSkiHouse.Web.Controllers
                 CardHolderPhoneNumber = currentUser.PhoneNumber
             };
 
+            //If this is the user's first card, auto-populate the name properties since this card is 
+            //most likely for that user. Otherwise assume the card is for a family member and leave
+            //the name properties blank.
             var hasExistingSkiCards = _skiCardContext.SkiCards.Any(s => s.ApplicationUserId == userId);
             if (!hasExistingSkiCards)
             {
