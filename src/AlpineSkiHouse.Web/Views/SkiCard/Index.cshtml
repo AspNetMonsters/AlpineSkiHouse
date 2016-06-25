@@ -1,0 +1,26 @@
+﻿@using AlpineSkiHouse.Models.SkiCardViewModels;
+@model IEnumerable<SkiCardListViewModel>
+
+<h2>Your Ski Cards</h2>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Card Holder</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach(var card in Model)
+        {
+            <tr>
+                <td>
+                    @card.CardHolderName
+                </td>
+                <td>
+                    <a asp-controller="SkiCard" asp-action="Edit" asp-route-id="@card.Id">Edit</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
