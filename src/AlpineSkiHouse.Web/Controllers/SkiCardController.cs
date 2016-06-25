@@ -144,7 +144,7 @@ namespace AlpineSkiHouse.Web.Controllers
 
                 await _skiCardContext.SaveChangesAsync();
 
-                return RedirectToAction("Index");
+                return RedirectToAction(nameof(Index));
             }            
             return View(viewModel);
         }
