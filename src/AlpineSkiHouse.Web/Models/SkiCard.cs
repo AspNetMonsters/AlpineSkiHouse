@@ -13,6 +13,8 @@ namespace AlpineSkiHouse.Models
         /// <summary>
         /// The Id of the ApplicationUser who owns this ski card
         /// </summary>
+        [MaxLength(450)]
+        [Required]
         public string ApplicationUserId { get; set; }
 
         /// <summary>
