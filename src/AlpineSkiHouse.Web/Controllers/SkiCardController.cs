@@ -134,7 +134,7 @@ namespace AlpineSkiHouse.Web.Controllers
 
                 if (skiCard == null)
                 {
-                    return NotFound();
+                    return BadRequest();
                 }
 
                 skiCard.CardHolderFirstName = viewModel.CardHolderFirstName;
