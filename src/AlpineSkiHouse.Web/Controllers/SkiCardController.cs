@@ -96,26 +96,56 @@ namespace AlpineSkiHouse.Web.Controllers
         }
 
         // GET: SkiCard/Edit/5
-        public ActionResult Edit(int id)
+        public async Task<ActionResult> Edit(int id)
         {
-            return View();
+            var userId = _userManager.GetUserId(User);
+
+            var skiCardViewModel = await _skiCardContext.SkiCards
+                .Where(s => s.ApplicationUserId == userId && s.Id == id)
+                .Select(s => new EditSkiCardViewModel
+                {
+                    Id = s.Id,
+                    CardHolderFirstName = s.CardHolderFirstName,
+                    CardHolderLastName = s.CardHolderLastName,
+                    CardHolderBirthDate = s.CardHolderBirthDate,
+                    CardHolderPhoneNumber = s.CardHolderPhoneNumber
+                }).SingleOrDefaultAsync();
+
+            if (skiCardViewModel == null)
+            {
+                return NotFound();
+            }
+            
+            return View(skiCardViewModel);
         }
 
         // POST: SkiCard/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        public async Task<ActionResult> Edit(EditSkiCardViewModel viewModel)
         {
-            try
+            if (ModelState.IsValid)
             {
-                // TODO: Add update logic here
+                var userId = _userManager.GetUserId(User);
+
+                var skiCard = await _skiCardContext.SkiCards
+                            .SingleOrDefaultAsync(s => s.ApplicationUserId == userId && s.Id == viewModel.Id);              
+
+                if (skiCard == null)
+                {
+                    return NotFound();
+                }
+
+                skiCard.CardHolderFirstName = viewModel.CardHolderFirstName;
+                skiCard.CardHolderLastName = viewModel.CardHolderLastName;
+                skiCard.CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber;
+                skiCard.CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date;
+
+                await _skiCardContext.SaveChangesAsync();
 
                 return RedirectToAction("Index");
-            }
-            catch
-            {
-                return View();
-            }
+            }            
+            return View(viewModel);
         }
 
         // GET: SkiCard/Delete/5

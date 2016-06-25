@@ -1,0 +1,61 @@
+﻿@using AlpineSkiHouse.Models.SkiCardViewModels
+
+@model EditSkiCardViewModel
+
+@{
+    ViewData["Title"] = "Edit Ski Card";
+}
+
+<h2>@ViewData["Title"].</h2>
+
+<form asp-controller="SkiCard" asp-action="Edit" method="post" class="form-horizontal">
+
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+    <p class="text-info">
+        Edit details for ski card.
+    </p>
+    <input asp-for="Id" type="hidden"/>
+
+    <div class="form-group">
+        <label asp-for="CardHolderFirstName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CardHolderFirstName" class="form-control" />
+            <span asp-validation-for="CardHolderFirstName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CardHolderLastName" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CardHolderLastName" class="form-control" />
+            <span asp-validation-for="CardHolderLastName" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CardHolderBirthDate" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CardHolderBirthDate" class="form-control" />
+            <span asp-validation-for="CardHolderBirthDate" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <label asp-for="CardHolderPhoneNumber" class="col-md-2 control-label"></label>
+        <div class="col-md-10">
+            <input asp-for="CardHolderPhoneNumber" class="form-control" />
+            <span asp-validation-for="CardHolderPhoneNumber" class="text-danger"></span>
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <button type="submit" class="btn btn-default">Save</button>
+        </div>
+    </div>
+</form>
+
+@section Scripts {
+    @{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
+}
+
+
+
+
