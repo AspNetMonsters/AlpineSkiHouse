@@ -8,9 +8,10 @@ using AlpineSkiHouse.Data;
 namespace AlpineSkiHouse.Web.Migrations
 {
     [DbContext(typeof(ResortContext))]
-    partial class ResortContextModelSnapshot : ModelSnapshot
+    [Migration("20160701011155_AddResortsAndLocations")]
+    partial class AddResortsAndLocations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
