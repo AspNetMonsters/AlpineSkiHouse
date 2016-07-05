@@ -22,6 +22,19 @@ namespace AlpineSkiHouse.Models.AccountViewModels
         [DataType(DataType.Password)]
         [Display(Name = "Confirm password")]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
-        public string ConfirmPassword { get; set; }
+        public string ConfirmPassword { get; set; }        
+
+        [Required]
+        [MaxLength(70)]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
+
+        [MaxLength(70)]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
+
+        [Phone]
+        [Display(Name = "Phone Number")]
+        public string PhoneNumber { get; set; }
     }
 }
