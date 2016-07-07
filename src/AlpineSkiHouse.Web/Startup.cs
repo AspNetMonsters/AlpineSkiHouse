@@ -116,8 +116,6 @@ namespace AlpineSkiHouse
             {
                 ConsumerKey = Configuration["Authentication:Twitter:ConsumerKey"],
                 ConsumerSecret = Configuration["Authentication:Twitter:ConsumerSecret"]
-
-
             });
 
             app.UseMvc(routes =>
