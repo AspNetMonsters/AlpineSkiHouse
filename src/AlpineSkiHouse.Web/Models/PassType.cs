@@ -11,6 +11,7 @@ namespace AlpineSkiHouse.Models
         public PassType()
         {
             PassTypeResorts = new List<PassTypeResort>();
+            Prices = new List<PassTypePrice>();
         }
 
         public int Id { get; set; }
@@ -25,6 +26,15 @@ namespace AlpineSkiHouse.Models
 
         public DateTime ValidTo { get; set; }
 
+        /// <summary>
+        /// Maximum number of times a pass of this type can be activated.
+        /// For example a standard day pass would have max activations of 1.
+        ///             an annual pass might have max activations of 265 (number of days the ski hill is open)
+        /// </summary>
+        public int MaxActivations { get; set; }
+
         public List<PassTypeResort> PassTypeResorts { get; set; }
+
+        public List<PassTypePrice> Prices { get; set; }
     }
 }
