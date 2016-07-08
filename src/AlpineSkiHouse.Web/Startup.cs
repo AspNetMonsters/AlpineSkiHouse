@@ -106,6 +106,11 @@ namespace AlpineSkiHouse
             app.UseIdentity();
 
             // Add external authentication middleware below. To configure them please see http://go.microsoft.com/fwlink/?LinkID=532715
+            if (Configuration["Authentication:Facebook:AppId"] == null ||
+                Configuration["Authentication:Facebook:AppSecret"] == null ||
+                Configuration["Authentication:Twitter:ConsumerKey"] == null ||
+                Configuration["Authentication:Twitter:ConsumerSecret"] == null)
+                throw new KeyNotFoundException("A configuration value is missing for authentication against Facebook and Twitter. While you don't need to get tokens for these you do need to set up your user secrets as described in the readme.");
             app.UseFacebookAuthentication(new FacebookOptions
             {
                 AppId = Configuration["Authentication:Facebook:AppId"],
