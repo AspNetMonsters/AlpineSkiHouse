@@ -14,6 +14,6 @@ namespace AlpineSkiHouse.Events
 
         public decimal TotalCost { get; set; }
 
-        public List<PassPurchased> PassPurchases { get; set; }        
+        public List<PassPurchased> Passes { get; set; }        
     }
 }

@@ -21,7 +21,7 @@ namespace AlpineSkiHouse.Handlers
         public void Handle(PurchaseCompleted notification)
         {
             var newPasses = new List<Pass>();   
-            foreach (var passPurchase in notification.PassPurchases)
+            foreach (var passPurchase in notification.Passes)
             {
                 Pass pass = new Pass
                 {
