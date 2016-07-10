@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using AlpineSkiHouse.Data;
 
-namespace AlpineSkiHouse.Web.Migrations
+namespace AlpineSkiHouse.Web.Migrations.PassType
 {
     [DbContext(typeof(PassTypeContext))]
-    partial class PassTypeContextModelSnapshot : ModelSnapshot
+    [Migration("20160708112240_AddPricesAndMaxActivations")]
+    partial class AddPricesAndMaxActivations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")
