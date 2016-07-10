@@ -12,6 +12,8 @@ namespace AlpineSkiHouse.Events
         public DateTime Date { get; set; }
         public string TransactionId { get; set; }
 
-        public List<PassPurchase> PassPurchases { get; set; }        
+        public decimal TotalCost { get; set; }
+
+        public List<PassPurchased> PassPurchases { get; set; }        
     }
 }
