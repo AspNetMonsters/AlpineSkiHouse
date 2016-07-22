@@ -42,7 +42,7 @@
         "Microsoft.AspNetCore.Authentication.Facebook": "1.0.0",
         "Microsoft.AspNetCore.Authentication.Twitter": "1.0.0",
         "MediatR": "2.1.0",
-        "Scrutor": "1.7.0"
+        "MediatR.Extensions.Microsoft.DependencyInjection": "1.0.0"
     },
 
     "tools": {
