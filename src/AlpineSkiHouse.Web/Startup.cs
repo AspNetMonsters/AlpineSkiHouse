@@ -13,6 +13,8 @@ using AlpineSkiHouse.Data;
 using AlpineSkiHouse.Models;
 using AlpineSkiHouse.Services;
 using Microsoft.AspNetCore.Mvc;
+using MediatR;
+using System.Reflection;
 
 namespace AlpineSkiHouse
 {
@@ -48,6 +50,11 @@ namespace AlpineSkiHouse
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
+
+            services.AddScoped<SingleInstanceFactory>(p => t => p.GetRequiredService(t));
+            services.AddScoped<MultiInstanceFactory>(p => t => p.GetServices(t));
+
+            services.AddMediatR(typeof(Startup).GetTypeInfo().Assembly);
 
             services.AddDbContext<ApplicationUserContext>(options =>
                 options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
