@@ -15,6 +15,8 @@ using AlpineSkiHouse.Services;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using System.Reflection;
+using Microsoft.AspNetCore.Authorization;
+using AlpineSkiHouse.Security;
 
 namespace AlpineSkiHouse
 {
@@ -74,6 +76,8 @@ namespace AlpineSkiHouse
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationUserContext>()
                 .AddDefaultTokenProviders();
+
+            services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
 
             services.AddMvc();
 

@@ -8,6 +8,7 @@ using AlpineSkiHouse.Models.SkiCardViewModels;
 using AlpineSkiHouse.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using AlpineSkiHouse.Security;
 
 namespace AlpineSkiHouse.Web.Controllers
 {
@@ -16,11 +17,15 @@ namespace AlpineSkiHouse.Web.Controllers
     {
         private readonly SkiCardContext _skiCardContext;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IAuthorizationService _authorizationService;
 
-        public SkiCardController(SkiCardContext skiCardContext, UserManager<ApplicationUser> userManager)
+        public SkiCardController(SkiCardContext skiCardContext, 
+                                    UserManager<ApplicationUser> userManager,
+                                    IAuthorizationService authorizationService)
         {
             _skiCardContext = skiCardContext;
             _userManager = userManager;
+            _authorizationService = authorizationService;
         }
 
         // GET: SkiCard
@@ -101,23 +106,32 @@ namespace AlpineSkiHouse.Web.Controllers
         {
             var userId = _userManager.GetUserId(User);
 
-            var skiCardViewModel = await _skiCardContext.SkiCards
-                .Where(s => s.ApplicationUserId == userId && s.Id == id)
-                .Select(s => new EditSkiCardViewModel
-                {
-                    Id = s.Id,
-                    CardHolderFirstName = s.CardHolderFirstName,
-                    CardHolderLastName = s.CardHolderLastName,
-                    CardHolderBirthDate = s.CardHolderBirthDate,
-                    CardHolderPhoneNumber = s.CardHolderPhoneNumber
-                }).SingleOrDefaultAsync();
+            var skiCard = await _skiCardContext.SkiCards
+                .Where(s => s.Id == id)
+                .SingleOrDefaultAsync();
 
-            if (skiCardViewModel == null)
+            if (skiCard == null)
             {
                 return NotFound();
             }
-            
-            return View(skiCardViewModel);
+
+            var skiCardViewModel = new EditSkiCardViewModel
+            {
+                Id = skiCard.Id,
+                CardHolderFirstName = skiCard.CardHolderFirstName,
+                CardHolderLastName = skiCard.CardHolderLastName,
+                CardHolderBirthDate = skiCard.CardHolderBirthDate,
+                CardHolderPhoneNumber = skiCard.CardHolderPhoneNumber
+            };
+           
+            if (await _authorizationService.AuthorizeAsync(User, skiCard, new EditSkiCardAuthorizationRequirement()))
+            {
+                return View(skiCardViewModel);
+            }
+            else
+            {
+                return new ChallengeResult();
+            }
         }
 
         // POST: SkiCard/Edit/5
@@ -127,24 +141,28 @@ namespace AlpineSkiHouse.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var userId = _userManager.GetUserId(User);
-
                 var skiCard = await _skiCardContext.SkiCards
-                            .SingleOrDefaultAsync(s => s.ApplicationUserId == userId && s.Id == viewModel.Id);              
+                            .SingleOrDefaultAsync(s => s.Id == viewModel.Id);              
 
                 if (skiCard == null)
                 {
-                    return BadRequest();
+                    return NotFound();
                 }
+                else if (await _authorizationService.AuthorizeAsync(User, skiCard, new EditSkiCardAuthorizationRequirement()))
+                {
+                    skiCard.CardHolderFirstName = viewModel.CardHolderFirstName;
+                    skiCard.CardHolderLastName = viewModel.CardHolderLastName;
+                    skiCard.CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber;
+                    skiCard.CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date;
 
-                skiCard.CardHolderFirstName = viewModel.CardHolderFirstName;
-                skiCard.CardHolderLastName = viewModel.CardHolderLastName;
-                skiCard.CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber;
-                skiCard.CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date;
+                    await _skiCardContext.SaveChangesAsync();
 
-                await _skiCardContext.SaveChangesAsync();
-
-                return RedirectToAction(nameof(Index));
+                    return RedirectToAction(nameof(Index));
+                }
+                else
+                {
+                    return new  ChallengeResult();
+                }
             }            
             return View(viewModel);
         }
