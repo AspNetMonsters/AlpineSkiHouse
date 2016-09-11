@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.Extensions.Configuration;
 
 namespace AlpineSkiHouse
 {
@@ -11,8 +12,13 @@ namespace AlpineSkiHouse
     {
         public static void Main(string[] args)
         {
+            var config = new ConfigurationBuilder()
+                        .AddCommandLine(args)
+                        .AddJsonFile("hosting.json", optional: true)
+                        .Build();
+
             var host = new WebHostBuilder()
-                .UseUrls("http://*:5000")
+                .UseConfiguration(config)
                 .UseKestrel()
                 .UseContentRoot(Directory.GetCurrentDirectory())
                 .UseIISIntegration()
