@@ -42,6 +42,7 @@
     <div class="container body-content">
         @RenderBody()
         <hr />
+        @await Component.InvokeAsync("CallCenterStatus")
         <footer>
             <p>&copy; 2016 - AlpineSkiHouse</p>
         </footer>
