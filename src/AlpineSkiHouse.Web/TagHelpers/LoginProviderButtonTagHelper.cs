@@ -18,15 +18,9 @@ namespace AlpineSkiHouse.TagHelpers
             output.Attributes.SetAttribute("type", "submit");
             output.Attributes.SetAttribute("name", "provider");
             output.Attributes.SetAttribute("value", LoginProvider.AuthenticationScheme);
-            output.Attributes.SetAttribute("title", $"Log in using your {LoginProvider.DisplayName} account");            
+            output.Attributes.SetAttribute("title", $"Log in using your {LoginProvider.DisplayName} account");
 
-            //TODO: Extension method to merge class attributes because this code is annoying
-            string classValue = "btn btn-default";
-            if (output.Attributes.ContainsName("class"))
-            {
-                classValue = $"{output.Attributes["class"].Value} {classValue}";
-            }
-            output.Attributes.SetAttribute("class", classValue);
+            output.Attributes.MergeClassAttributeValue("btn btn-default");            
 
             output.Content.SetContent(LoginProvider.AuthenticationScheme);
         }
