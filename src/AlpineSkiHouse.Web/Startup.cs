@@ -16,6 +16,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection;
+using AlpineSkiHouse.Configuration;
 
 namespace AlpineSkiHouse
 {
@@ -23,7 +24,7 @@ namespace AlpineSkiHouse
     {
         public Startup(IHostingEnvironment env)
         {
-            Configuration = ConfigBuilder.Build(env);
+            Configuration = AlpineConfigurationBuilder.Build(env);
             CurrentEnvironment = env;
         }
 
@@ -62,6 +63,10 @@ namespace AlpineSkiHouse
                 .AddDefaultTokenProviders();
 
             services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
+
+            services.AddOptions();
+            services.Configure<CsrInformationOptions>(Configuration.GetSection("CsrInformationOptions"));
+            services.AddScoped<ICsrInformationService, CsrInformationService>();
 
             services.AddMvc();
 
