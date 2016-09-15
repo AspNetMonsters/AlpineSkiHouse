@@ -7,7 +7,7 @@ namespace AlpineSkiHouse.Configuration
 {
     public static class CsrInformationExtensions
     {
-        public static IConfigurationBuilder AddCsrInformationFile(this IConfigurationBuilder builder, string path,bool reloadOnChange)
+        public static IConfigurationBuilder AddCsrInformationFile(this IConfigurationBuilder builder, string path, bool reloadOnChange)
         {
             return AddCsrInformationFile(builder, null, path, false, reloadOnChange);
         }

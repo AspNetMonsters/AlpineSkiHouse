@@ -29,7 +29,6 @@ namespace AlpineSkiHouse.Controllers
             return View();
         }
 
-        [Authorize("AuthorizedChampquettes")]
         public IActionResult Contact()
         {
             ViewData["Message"] = "Your contact page.";
