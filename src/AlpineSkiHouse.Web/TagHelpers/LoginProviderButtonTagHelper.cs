@@ -1,16 +1,12 @@
 ﻿using Microsoft.AspNetCore.Http.Authentication;
 using Microsoft.AspNetCore.Razor.TagHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.TagHelpers
 {
-    [HtmlTargetElement("button", Attributes = "ash-login-provider")]
+    [HtmlTargetElement("button", Attributes = "ski-login-provider")]
     public class LoginProviderButtonTagHelper : TagHelper
     {
-        [HtmlAttributeName("ash-login-provider")]
+        [HtmlAttributeName("ski-login-provider")]
         public AuthenticationDescription LoginProvider { get; set; }
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
