@@ -1,14 +1,9 @@
-﻿///<reference path="../../../node_modules/@types/promise/index.d.ts"/>
-///<reference path="../../../node_modules/@types/systemjs/index.d.ts"/>
+﻿import {Blah} from "./Blah";
 
-module Pages.Home {
-    export class Index {
-        constructor() {
-            debugger; 
-            System.import("Pages/Home/Blah").then(() => {
-                var b = new Pages.Home.Blah();
-                console.log("hello");
-            });
-        }
+export class Index {
+    constructor() {
+        var b = new Blah();
+        console.log("hello");
     }
 }
+

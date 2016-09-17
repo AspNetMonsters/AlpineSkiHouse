@@ -1,7 +1,6 @@
-﻿module Pages.Home {
-    export class Blah {
-        constructor() {
-            console.log("blah");
-        }
+﻿
+export class Blah {
+    constructor() {
+        console.log("blah");
     }
 }

@@ -1,1 +1,3 @@
-﻿var index = new Pages.Home.Index();
+﻿import {Index} from "./Pages/Home/Index";
+
+var index = new Index();

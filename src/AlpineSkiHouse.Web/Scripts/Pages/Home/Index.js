@@ -1,19 +1,10 @@
-///<reference path="../../../node_modules/@types/promise/index.d.ts"/>
-///<reference path="../../../node_modules/@types/systemjs/index.d.ts"/>
-var Pages;
-(function (Pages) {
-    var Home;
-    (function (Home) {
-        var Index = (function () {
-            function Index() {
-                debugger;
-                System.import("Pages/Home/Blah").then(function () {
-                    var b = new Pages.Home.Blah();
-                    console.log("hello");
-                });
-            }
-            return Index;
-        }());
-        Home.Index = Index;
-    })(Home = Pages.Home || (Pages.Home = {}));
-})(Pages || (Pages = {}));
+"use strict";
+var Blah_1 = require("./Blah");
+var Index = (function () {
+    function Index() {
+        var b = new Blah_1.Blah();
+        console.log("hello");
+    }
+    return Index;
+}());
+exports.Index = Index;
