@@ -8,7 +8,8 @@ var gulp = require("gulp"),
     uglify = require("gulp-uglify"),
     typescript = require("gulp-typescript"),
     rename = require("gulp-rename2"),
-    watch = require("gulp-watch");
+    watch = require("gulp-watch"),
+    sass = require("gulp-sass");
 
 var webroot = "./wwwroot/";
 var sourceroot = "./Scripts/"
@@ -19,6 +20,8 @@ var paths = {
     ts: sourceroot + "**/*.ts",
     tsDefintionFiles: "npm_modules/@types/**/*.d.ts",
     minJs: webroot + "js/**/*.min.js",
+    sass: "style/**/*.sass",
+    sassDest: webroot + "css",
     css: webroot + "css/**/*.css",
     minCss: webroot + "css/**/*.min.css",
     concatJsDest: webroot + "js/site.min.js",
@@ -64,6 +67,12 @@ gulp.task("min:js", function () {
         .pipe(gulp.dest("."));
 });
 
+gulp.task("sass", function(){
+    return gulp.src(paths.sass)
+        .pipe(sass())
+        .pipe(gulp.dest(paths.sassDest));
+});
+
 gulp.task("min:css", function () {
     return gulp.src([paths.css, "!" + paths.minCss])
         .pipe(concat(paths.concatCssDest))
@@ -73,7 +82,7 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
-gulp.task("default", ["stage-loader", "typescript"]);
+gulp.task("default", ["stage-loader", "typescript", "sass"]);
 
 gulp.task("watch", ["default"], function () {
     return gulp.watch(paths.ts, ["typescript"]);
