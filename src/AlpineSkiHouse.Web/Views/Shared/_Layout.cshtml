@@ -15,6 +15,8 @@
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute" />
         <link rel="stylesheet" href="~/css/site.min.css" asp-append-version="true" />
     </environment>
+    <script src="~/js/system.js"></script>
+    <script src="~/js/jspmconfig.js"></script>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 <body>
@@ -63,8 +65,7 @@
         </script>
         <script src="~/js/site.min.js" asp-append-version="true"></script>
     </environment>
-    <script src="~/js/system.js"></script>
-    <script src="~/js/jspmconfig.js"></script>
+    
     <script>
         System.import("jquery");
         System.import("Pages/Home/Index");

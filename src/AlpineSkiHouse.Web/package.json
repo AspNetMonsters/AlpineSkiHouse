@@ -10,16 +10,17 @@
     "rimraf": "2.2.8",
     "gulp-typescript": "2.13.6",
     "gulp-rename2": "0.1.5",
-    "jspm": "0.16.45", 
+    "jspm": "0.16.45",
     "gulp-watch": "4.3.9"
   },
   "jspm": {
     "directories": {
-      "baseURL": "../../../../js",
+      "baseURL": "js",
       "packages": "jspm_packages"
     },
     "configFile": "Scripts/jspmconfig.js",
     "dependencies": {
+      "chart": "github:chartjs/Chart.js@^2.2.2",
       "jquery": "npm:jquery@^3.1.0"
     },
     "devDependencies": {

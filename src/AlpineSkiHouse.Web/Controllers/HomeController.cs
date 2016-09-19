@@ -10,12 +10,20 @@ namespace AlpineSkiHouse.Controllers
     {
         public IActionResult Index()
         {
-            return View();
+            if(!User.Claims.Any())
+                return View();
+            return RedirectToAction("LoggedIn");
         }
 
         public IActionResult About()
         {
             ViewData["Message"] = "Your application description page.";
+
+            return View();
+        }
+
+        public IActionResult LoggedIn()
+        {
 
             return View();
         }
