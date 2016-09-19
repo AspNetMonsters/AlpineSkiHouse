@@ -9,6 +9,7 @@ var gulp = require("gulp"),
     typescript = require("gulp-typescript"),
     rename = require("gulp-rename2"),
     watch = require("gulp-watch"),
+    imageop = require('gulp-image-optimization'),
     sass = require("gulp-sass");
 
 var webroot = "./wwwroot/";
@@ -22,6 +23,8 @@ var paths = {
     minJs: webroot + "js/**/*.min.js",
     sass: "style/**/*.sass",
     sassDest: webroot + "css",
+    images: "images/**/*.*",
+    imagesDest: webroot + "images",
     css: webroot + "css/**/*.css",
     minCss: webroot + "css/**/*.min.css",
     concatJsDest: webroot + "js/site.min.js",
@@ -71,6 +74,16 @@ gulp.task("sass", function(){
     return gulp.src(paths.sass)
         .pipe(sass())
         .pipe(gulp.dest(paths.sassDest));
+});
+
+gulp.task("images", function()
+{
+    return gulp.src(paths.images)
+        .pipe(imageop({
+            optimizationLevel: 5,
+            progressive: true,
+            interlaced: true
+        })).pipe(gulp.dest(paths.imagesDest));
 });
 
 gulp.task("min:css", function () {
