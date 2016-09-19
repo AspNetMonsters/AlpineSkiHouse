@@ -1,4 +1,5 @@
 ﻿/// <autosync enabled="true" />
+/// <reference path="../gruntfile.js" />
 /// <reference path="../gulpfile.js" />
 /// <reference path="../scripts/controls/metersskied.js" />
 /// <reference path="../scripts/controls/metersskiedloader.js" />

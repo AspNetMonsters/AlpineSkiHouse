@@ -10,7 +10,7 @@ namespace AlpineSkiHouse.Controllers
     {
         public IActionResult Index()
         {
-            if(!User.Claims.Any())
+            if (!User.Identity.IsAuthenticated)
                 return View();
             return RedirectToAction("LoggedIn");
         }

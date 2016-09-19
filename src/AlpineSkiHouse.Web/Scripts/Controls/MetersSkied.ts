@@ -1,11 +1,12 @@
-﻿import {Chart} from "chart";
+﻿///<reference path="../../node_modules/@types/chartjs/index.d.ts" />
+
+import {Chart} from "chart";
 
 export class MetersSkied {
     constructor(container:HTMLElement) {
-        var chart = new Chart(container,
-            {
-                type: 'bar',
-                data: {
+        var chart = new Chart(container, {
+                 type: 'bar',
+                 data: {
                     labels: ["November", "December", "January", "February", "March", "April"],
                     datasets: [{
                         label: 'Meters Skied',
@@ -29,16 +30,19 @@ export class MetersSkied {
                         borderWidth: 1
                     }]
                 },
-                options: {
+                options: { 
                     scales: {
-                        yAxes: [{
-                            ticks: {
-                                beginAtZero: true
+                        yAxes: [
+                            {
+                                ticks:{
+                                    beginAtZero: true
+                                }
                             }
-                        }]
+                        ]
+
                     }
                 }
-            });
+        });
         
     }
 }

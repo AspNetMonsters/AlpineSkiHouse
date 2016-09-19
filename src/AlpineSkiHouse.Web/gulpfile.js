@@ -17,6 +17,7 @@ var paths = {
     loader: "jspm_packages/**/*.js",
     loaderConfig: "Scripts/jspmconfig.js",
     ts: sourceroot + "**/*.ts",
+    tsDefintionFiles: "npm_modules/@types/**/*.d.ts",
     minJs: webroot + "js/**/*.min.js",
     css: webroot + "css/**/*.css",
     minCss: webroot + "css/**/*.min.css",
@@ -43,7 +44,7 @@ gulp.task("stage-loader", function () {
 });
 
 gulp.task("typescript", function(){
-    return gulp.src([paths.ts, "!" + paths.minJs], { base: "." })
+    return gulp.src([paths.tsDefintionFiles, paths.ts, "!" + paths.minJs], { base: "." })
         .pipe(typescript({
             module: "system"
         }))
