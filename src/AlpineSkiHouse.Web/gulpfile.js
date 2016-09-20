@@ -95,7 +95,7 @@ gulp.task("min:css", function () {
 
 gulp.task("min", ["min:js", "min:css"]);
 
-gulp.task("default", ["stage-loader", "typescript", "sass"]);
+gulp.task("default", ["stage-loader", "typescript", "sass", "images"]);
 
 gulp.task("watch", ["default"], function () {
     return gulp.watch(paths.ts, ["typescript"]);
