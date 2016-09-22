@@ -1,0 +1,13 @@
+﻿@using AlpineSkiHouse.Models.CallCenterViewModels
+@model CallCenterStatusViewModel
+
+<div class="panel panel-success">
+    <div class="panel-heading">Having trouble? We're here to help!</div>
+    <div class="panel-body">
+        We have @Model.OnlineRepresentatives friendly agents available.
+        <br/>
+        Give us a call at <i class="glyphicon glyphicon-earphone"></i> <a href="tel:@Model.PhoneNumber">@Model.PhoneNumber</a>
+    </div>
+</div>
+
+
