@@ -35,5 +35,9 @@
       "babel-runtime": "npm:babel-runtime@^5.8.24",
       "core-js": "npm:core-js@^1.1.4"
     }
+  },
+  "dependencies": {
+    "ts-loader": "^0.8.2",
+    "webpack-uglify-js-plugin": "^1.1.9"
   }
 }
