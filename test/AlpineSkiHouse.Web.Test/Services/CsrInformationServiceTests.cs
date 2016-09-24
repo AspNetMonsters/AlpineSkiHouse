@@ -6,36 +6,10 @@ using Xunit;
 
 namespace AlpineSkiHouse.Web.Tests.Services
 {
-    public class CsrInformationServiceTests
+public class CsrInformationServiceTests
+{
+    public class GivenThereIsAtLeastOneRepresentativeOnline
     {
-        public class GivenThereIsAtLeastOneRepresentativeOnline
-        {            
-            public static readonly List<object[]> options = new List<object[]>
-               {
-                    new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 1} )},
-                    new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 2} )},
-                    new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 3} )},
-                    new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 1000} )},
-                    new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 100000} )}
-               };
-            
-            [Theory]
-            [MemberData(nameof(options))]
-            public void CallCenterOnlineShouldBeTrue(IOptions<CsrInformationOptions> options)
-            {
-                var service = new CsrInformationService(options);
-                Assert.True(service.CallCenterOnline);
-            }
-
-            [Theory]
-            [MemberData(nameof(options))]
-            public void OnlineRepresentativesShouldMatchOptionsSource(IOptions<CsrInformationOptions> options)
-            {
-                var service = new CsrInformationService(options);
-                Assert.Equal(options.Value.OnlineRepresentatives, service.OnlineRepresentatives);
-            }
-        }
-
         public class GivenThereAreNoRepresentativesOnline
         {
             private IOptions<CsrInformationOptions> options;
@@ -53,5 +27,31 @@ namespace AlpineSkiHouse.Web.Tests.Services
                 Assert.False(service.CallCenterOnline);
             }
         }
-    }
+
+        public static readonly List<object[]> options = new List<object[]>
+        {
+            new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 1} )},
+            new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 2} )},
+            new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 3} )},
+            new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 1000} )},
+            new object[] {Options.Create(new CsrInformationOptions { OnlineRepresentatives = 100000} )}
+        };
+
+        [Theory]
+        [MemberData(nameof(options))]
+        public void CallCenterOnlineShouldBeTrue(IOptions<CsrInformationOptions> options)
+        {
+            var service = new CsrInformationService(options);
+            Assert.True(service.CallCenterOnline);
+        }
+
+        [Theory]
+        [MemberData(nameof(options))]
+        public void OnlineRepresentativesShouldMatchOptionsSource(IOptions<CsrInformationOptions> options)
+        {
+            var service = new CsrInformationService(options);
+            Assert.Equal(options.Value.OnlineRepresentatives, service.OnlineRepresentatives);
+        }
+    }        
+}
 }
