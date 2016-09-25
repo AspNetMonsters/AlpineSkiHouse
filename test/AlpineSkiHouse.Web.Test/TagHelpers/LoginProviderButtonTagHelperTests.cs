@@ -89,12 +89,10 @@ namespace AlpineSkiHouse.Web.Tests.TagHelpers
                 uniqueId: id);
         }
 
-
-
         private static TagHelperOutput GetTagHelperOutput(
             string tagName = "button",
             TagHelperAttributeList attributes = null,
-            string childContent = "some child content")
+            string childContent = "")
         {
             attributes = attributes ?? new TagHelperAttributeList();
             return new TagHelperOutput(
