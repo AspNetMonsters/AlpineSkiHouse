@@ -1,33 +1,27 @@
-﻿using AlpineSkiHouse.Data;
-using AlpineSkiHouse.Models;
-using AlpineSkiHouse.Services;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net;
+using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using AlpineSkiHouse.Features.Pass.Scan;
+using MediatR;
 
 namespace AlpineSkiHouse.Controllers.Api
 {
     [Route("api/[controller]")]
     public class ScanController : Controller
     {
-        private readonly PassContext _context;
-        private readonly ICardValidator _cardValidator;
-        public ScanController(PassContext context, ICardValidator passValidator)
+        private readonly IMediator _mediator;
+        public ScanController(IMediator mediator)
         {
-            _cardValidator = passValidator;
-            _context = context;
+            _mediator = mediator;
         }
 
         [HttpPost]
-        public async Task<IActionResult> Post([FromBody]Scan scan)
+        public async Task<IActionResult> Post([FromBody]ScanCardCommand scan)
         {
-            _context.Scans.Add(scan);
-            await _context.SaveChangesAsync();
-
-            if(_cardValidator.IsValid(scan.CardId, scan.LocationId))
+            if ((await _mediator.SendAsync(scan)).CardIsValid)
                 return StatusCode((int)HttpStatusCode.Created);
             return StatusCode((int)HttpStatusCode.Unauthorized);
         }
