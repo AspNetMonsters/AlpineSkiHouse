@@ -129,10 +129,10 @@ namespace AlpineSkiHouse
 
             app.UseMvc(routes =>
             {
-                routes.MapAreaRoute("defaultArea", "Admin", "{area}/{controller}/{action=Index}/{id?}");
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+                routes.MapAreaRoute("defaultArea", "Admin", "{area}/{controller}/{action=Index}/{id?}");
             });
         }
     }
