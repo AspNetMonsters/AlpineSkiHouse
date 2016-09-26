@@ -17,10 +17,10 @@ namespace AlpineSkiHouse.Features.Pass.Scan
             _validator = validator;
         }
 
-        public Task<ScanCardResult> Handle(ScanCardCommand message)
+        public async Task<ScanCardResult> Handle(ScanCardCommand message)
         {
             await _mediator.PublishAsync(new CardScanned { CardId = message.CardId, LocationId = message.LocationId, DateTime = message.DateTime });
-            return Task.FromResult(new ScanCardResult { CardIsValid = _validator.IsValid(message.CardId, message.LocationId) });
+            return await Task.FromResult(new ScanCardResult { CardIsValid = _validator.IsValid(message.CardId, message.LocationId) });
         }
     }
 }
