@@ -14,7 +14,7 @@ namespace AlpineSkiHouse
         {
             var builder = new ConfigurationBuilder()
                .SetBasePath(env.ContentRootPath)
-               .AddCsrInformationFile("config\\TPC_ONLINE_AGENTS.INFO", reloadOnChange: true)
+               .AddCsrInformationFile("Config/TPC_ONLINE_AGENTS.INFO", reloadOnChange: true)
                .AddJsonFile("appsettings.json", optional: true, reloadOnChange: true)
                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: true);
 
