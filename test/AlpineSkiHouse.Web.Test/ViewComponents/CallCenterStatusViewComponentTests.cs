@@ -40,7 +40,7 @@ namespace AlpineSkiHouse.Web.Tests.ViewComponents
 
                 Assert.IsType<ViewViewComponentResult>(result);
                 var viewResult = result as ViewViewComponentResult;
-                Assert.Null("Default", viewResult.ViewName);
+                Assert.Null(viewResult.ViewName);
             }
         }
     }
