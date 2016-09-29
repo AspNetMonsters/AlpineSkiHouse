@@ -17,6 +17,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using System.Reflection;
 using AlpineSkiHouse.Configuration;
+using Serilog;
+using Serilog.Filters;
+using Serilog.Core;
 
 namespace AlpineSkiHouse
 {
@@ -84,10 +87,34 @@ namespace AlpineSkiHouse
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory, IApplicationLifetime applicationLifetime)
         {
-            loggerFactory.AddConsole(Configuration.GetSection("Logging"));
-            loggerFactory.AddDebug();
+            // Console logging
+            // uncomment to use the default console logger
+            // var loggingConfig = Configuration.GetSection("Logging");
+            // loggerFactory.AddConsole(loggingConfig);
+            // end of Console logging
+
+            loggerFactory.AddDebug((className, logLevel) =>
+            {
+                if (className.StartsWith("AlpineSkiHouse."))
+                    return true;
+                return false;
+            });
+
+            // Serilog config
+            // comment out if using the default console logger
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Information()                
+                .MinimumLevel.Override("AlpineSkiHouse", Serilog.Events.LogEventLevel.Debug)
+                .Enrich.FromLogContext()
+                .WriteTo.LiterateConsole()
+                .WriteTo.Seq("http://localhost:5341")
+                .CreateLogger();
+
+            loggerFactory.AddSerilog();
+            applicationLifetime.ApplicationStopped.Register(Log.CloseAndFlush);
+            // end of Serilog config
 
             app.UseApplicationInsightsRequestTelemetry();
 

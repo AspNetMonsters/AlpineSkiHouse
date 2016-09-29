@@ -9,6 +9,7 @@ using AlpineSkiHouse.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using AlpineSkiHouse.Security;
+using Microsoft.Extensions.Logging;
 
 namespace AlpineSkiHouse.Web.Controllers
 {
@@ -18,14 +19,17 @@ namespace AlpineSkiHouse.Web.Controllers
         private readonly SkiCardContext _skiCardContext;
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly IAuthorizationService _authorizationService;
+        private ILogger<SkiCardController> _logger;
 
         public SkiCardController(SkiCardContext skiCardContext, 
                                     UserManager<ApplicationUser> userManager,
-                                    IAuthorizationService authorizationService)
+                                    IAuthorizationService authorizationService,
+                                    ILogger<SkiCardController> logger)
         {
             _skiCardContext = skiCardContext;
             _userManager = userManager;
             _authorizationService = authorizationService;
+            _logger = logger;
         }
 
         // GET: SkiCard
@@ -81,20 +85,27 @@ namespace AlpineSkiHouse.Web.Controllers
             if (ModelState.IsValid)
             {
                 var userId = _userManager.GetUserId(User);
+                _logger.LogDebug($"Creating ski card for {userId}");
 
-                SkiCard skiCard = new SkiCard
+                using (_logger.BeginScope($"CreateSkiCard:{userId}"))
                 {
-                    ApplicationUserId = userId,
-                    CreatedOn = DateTime.UtcNow,
-                    CardHolderFirstName = viewModel.CardHolderFirstName,
-                    CardHolderLastName = viewModel.CardHolderLastName,
-                    CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date,
-                    CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber
-                };
+                    SkiCard skiCard = new SkiCard
+                    {
+                        ApplicationUserId = userId,
+                        CreatedOn = DateTime.UtcNow,
+                        CardHolderFirstName = viewModel.CardHolderFirstName,
+                        CardHolderLastName = viewModel.CardHolderLastName,
+                        CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date,
+                        CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber
+                    };
 
-                _skiCardContext.SkiCards.Add(skiCard);
-                await _skiCardContext.SaveChangesAsync();
+                    _skiCardContext.SkiCards.Add(skiCard);
+                    await _skiCardContext.SaveChangesAsync();
 
+                    _logger.LogInformation($"Ski card created for {userId}");
+                }
+
+                _logger.LogDebug($"Ski card for {userId} created successfully, redirecting to Index...");
                 return RedirectToAction(nameof(Index));
             }
 
