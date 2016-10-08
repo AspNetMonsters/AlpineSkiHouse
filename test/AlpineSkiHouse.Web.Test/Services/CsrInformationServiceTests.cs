@@ -5,7 +5,6 @@ using Microsoft.Extensions.Options;
 using Moq;
 using System.Collections.Generic;
 using Xunit;
-using Moq;
 
 namespace AlpineSkiHouse.Web.Tests.Services
 {
