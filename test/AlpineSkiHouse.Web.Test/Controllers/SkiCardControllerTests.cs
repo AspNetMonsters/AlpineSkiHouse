@@ -14,6 +14,8 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Http;
 using AlpineSkiHouse.Models;
 using AlpineSkiHouse.Security;
+using Serilog;
+using Microsoft.Extensions.Logging;
 
 namespace AlpineSkiHouse.Web.Tests.Controllers
 {
@@ -28,7 +30,7 @@ namespace AlpineSkiHouse.Web.Tests.Controllers
                 using (SkiCardContext context =
                         new SkiCardContext(InMemoryDbContextOptionsFactory.Create<SkiCardContext>()))
                 {
-                    var controller = new SkiCardController(context, null, null);
+                    var controller = new SkiCardController(context, null, null, new Mock<ILogger<SkiCardController>>().Object);
                     var result = await controller.Edit(new EditSkiCardViewModel
                     {
                         Id = 2,
@@ -85,7 +87,7 @@ namespace AlpineSkiHouse.Web.Tests.Controllers
             public async void EditActionShouldReturnChallengeResult()
             {
                 
-                var controller = new SkiCardController(_skiCardContext, null, _mockAuthorizationService.Object)
+                var controller = new SkiCardController(_skiCardContext, null, _mockAuthorizationService.Object, new Mock<ILogger<SkiCardController>>().Object)
                 {
                     ControllerContext = _controllerContext
                 };

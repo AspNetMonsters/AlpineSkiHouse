@@ -1,8 +1,10 @@
 ﻿using AlpineSkiHouse.Configuration;
 using AlpineSkiHouse.Services;
+using Microsoft.Extensions.Logging;
 using Microsoft.Extensions.Options;
 using System.Collections.Generic;
 using Xunit;
+using Moq;
 
 namespace AlpineSkiHouse.Web.Tests.Services
 {
@@ -23,7 +25,7 @@ public class CsrInformationServiceTests
             [Fact]
             public void CallCenterOnlineShouldBeFalse()
             {
-                var service = new CsrInformationService(options);
+                var service = new CsrInformationService(options, new Mock<ILogger<CsrInformationService>>().Object);
                 Assert.False(service.CallCenterOnline);
             }
         }
@@ -41,7 +43,7 @@ public class CsrInformationServiceTests
         [MemberData(nameof(options))]
         public void CallCenterOnlineShouldBeTrue(IOptions<CsrInformationOptions> options)
         {
-            var service = new CsrInformationService(options);
+            var service = new CsrInformationService(options, new Mock<ILogger<CsrInformationService>>().Object);
             Assert.True(service.CallCenterOnline);
         }
 
@@ -49,7 +51,7 @@ public class CsrInformationServiceTests
         [MemberData(nameof(options))]
         public void OnlineRepresentativesShouldMatchOptionsSource(IOptions<CsrInformationOptions> options)
         {
-            var service = new CsrInformationService(options);
+            var service = new CsrInformationService(options, new Mock<ILogger<CsrInformationService>>().Object);
             Assert.Equal(options.Value.OnlineRepresentatives, service.OnlineRepresentatives);
         }
     }        
