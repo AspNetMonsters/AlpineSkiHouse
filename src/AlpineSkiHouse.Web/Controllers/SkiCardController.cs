@@ -10,6 +10,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using AlpineSkiHouse.Security;
 using Microsoft.Extensions.Logging;
+using AlpineSkiHouse.Services;
+using Microsoft.AspNetCore.Http;
 
 namespace AlpineSkiHouse.Web.Controllers
 {
@@ -18,16 +20,19 @@ namespace AlpineSkiHouse.Web.Controllers
     {
         private readonly SkiCardContext _skiCardContext;
         private readonly UserManager<ApplicationUser> _userManager;
+        private readonly IBlobFileUploadService _uploadservice;
         private readonly IAuthorizationService _authorizationService;
         private ILogger<SkiCardController> _logger;
 
         public SkiCardController(SkiCardContext skiCardContext, 
                                     UserManager<ApplicationUser> userManager,
                                     IAuthorizationService authorizationService,
+                                    IBlobFileUploadService uploadservice,
                                     ILogger<SkiCardController> logger)
         {
             _skiCardContext = skiCardContext;
             _userManager = userManager;
+            _uploadservice = uploadservice;
             _authorizationService = authorizationService;
             _logger = logger;
         }
@@ -82,34 +87,46 @@ namespace AlpineSkiHouse.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(CreateSkiCardViewModel viewModel)
         {
-            if (ModelState.IsValid)
+            // return to view if the modelstate is invalid
+            if (!ModelState.IsValid)
+                return View(viewModel);
+
+            // create and save the card
+            var userId = _userManager.GetUserId(User);
+            _logger.LogDebug($"Creating ski card for {userId}");
+
+            using (_logger.BeginScope($"CreateSkiCard:{userId}"))
             {
-                var userId = _userManager.GetUserId(User);
-                _logger.LogDebug($"Creating ski card for {userId}");
+                var createImage = viewModel.CardImage != null;
+                Guid? imageId = null;
 
-                using (_logger.BeginScope($"CreateSkiCard:{userId}"))
+                if (createImage)
                 {
-                    SkiCard skiCard = new SkiCard
-                    {
-                        ApplicationUserId = userId,
-                        CreatedOn = DateTime.UtcNow,
-                        CardHolderFirstName = viewModel.CardHolderFirstName,
-                        CardHolderLastName = viewModel.CardHolderLastName,
-                        CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date,
-                        CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber
-                    };
-
-                    _skiCardContext.SkiCards.Add(skiCard);
-                    await _skiCardContext.SaveChangesAsync();
-
-                    _logger.LogInformation($"Ski card created for {userId}");
+                    _logger.LogInformation($"Uploading ski card image for {userId}");
+                    imageId = Guid.NewGuid();
+                    var imageUri = await _uploadservice.UploadFileFromStream("cardimages", imageId.ToString(), viewModel.CardImage.OpenReadStream());
                 }
 
-                _logger.LogDebug($"Ski card for {userId} created successfully, redirecting to Index...");
-                return RedirectToAction(nameof(Index));
+                _logger.LogInformation($"Saving ski card to DB for {userId}");
+                SkiCard skiCard = new SkiCard
+                {
+                    ApplicationUserId = userId,
+                    CreatedOn = DateTime.UtcNow,
+                    CardHolderFirstName = viewModel.CardHolderFirstName,
+                    CardHolderLastName = viewModel.CardHolderLastName,
+                    CardHolderBirthDate = viewModel.CardHolderBirthDate.Value.Date,
+                    CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber,
+                    CardImageId = imageId
+                };
+                _skiCardContext.SkiCards.Add(skiCard);
+                await _skiCardContext.SaveChangesAsync();
+
+                _logger.LogInformation($"Ski card created for {userId}");
             }
 
-            return View(viewModel);
+            _logger.LogDebug($"Ski card for {userId} created successfully, redirecting to Index...");
+            return RedirectToAction(nameof(Index));
+
         }
 
         // GET: SkiCard/Edit/5

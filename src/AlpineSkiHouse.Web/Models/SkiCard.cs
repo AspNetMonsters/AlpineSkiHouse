@@ -33,5 +33,7 @@ namespace AlpineSkiHouse.Models
 
         [Phone]
         public string CardHolderPhoneNumber { get; set; }
+
+        public Guid? CardImageId { get; set; }
     }
 }

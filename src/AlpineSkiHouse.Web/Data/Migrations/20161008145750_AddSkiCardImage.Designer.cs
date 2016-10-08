@@ -5,12 +5,13 @@ using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using AlpineSkiHouse.Data;
 
-namespace AlpineSkiHouse.Data.Migrations
+namespace AlpineSkiHouse.Web.Migrations.SkiCard
 {
     [DbContext(typeof(SkiCardContext))]
-    partial class SkiCardContextModelSnapshot : ModelSnapshot
+    [Migration("20161008145750_AddSkiCardImage")]
+    partial class AddSkiCardImage
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
             modelBuilder
                 .HasAnnotation("ProductVersion", "1.0.0-rtm-21431")

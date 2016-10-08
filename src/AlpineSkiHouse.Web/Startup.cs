@@ -20,6 +20,8 @@ using AlpineSkiHouse.Configuration;
 using Serilog;
 using Serilog.Filters;
 using Serilog.Core;
+using AlpineSkiHouse.Configuration.Models;
+using Microsoft.Extensions.Options;
 
 namespace AlpineSkiHouse
 {
@@ -64,6 +66,9 @@ namespace AlpineSkiHouse
             services.AddIdentity<ApplicationUser, IdentityRole>()
                 .AddEntityFrameworkStores<ApplicationUserContext>()
                 .AddDefaultTokenProviders();
+
+            services.Configure<AzureStorageSettings>(Configuration.GetSection("MicrosoftAzureStorage"));
+            services.AddTransient<IBlobFileUploadService, BlobFileUploadService>();
 
             services.AddSingleton<IAuthorizationHandler, EditSkiCardAuthorizationHandler>();
 

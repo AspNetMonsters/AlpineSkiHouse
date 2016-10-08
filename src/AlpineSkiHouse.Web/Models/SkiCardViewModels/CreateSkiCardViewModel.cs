@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.AspNetCore.Http;
+using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace AlpineSkiHouse.Models.SkiCardViewModels
@@ -22,5 +23,7 @@ namespace AlpineSkiHouse.Models.SkiCardViewModels
         [Phone]
         public string CardHolderPhoneNumber { get; set; }
 
+        [Display(Name = "Image to be Displayed on Card")]
+        public IFormFile CardImage { set; get; }
     }
 }
