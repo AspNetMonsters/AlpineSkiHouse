@@ -11,10 +11,11 @@ System.register(["chart"], function(exports_1, context_1) {
         execute: function() {
             MetersSkied = (function () {
                 function MetersSkied(container) {
+                    this.labels = ["November", "December", "January", "February", "March", "April"];
                     var chart = new chart_1.Chart(container, {
                         type: 'bar',
                         data: {
-                            labels: ["November", "December", "January", "February", "March", "April"],
+                            labels: this.labels,
                             datasets: [{
                                     label: 'Meters Skied',
                                     data: [1200, 1900, 300, 500, 200, 300],

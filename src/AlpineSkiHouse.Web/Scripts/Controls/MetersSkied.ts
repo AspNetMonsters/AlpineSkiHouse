@@ -3,11 +3,15 @@
 import {Chart} from "chart";
 
 export class MetersSkied {
-    constructor(container:HTMLElement) {
+    public labels: string[];
+
+    constructor(container: HTMLElement) {
+
+        this.labels = ["November", "December", "January", "February", "March", "April"];
         var chart = new Chart(container, {
                  type: 'bar',
                  data: {
-                    labels: ["November", "December", "January", "February", "March", "April"],
+                     labels: this.labels,
                     datasets: [{
                         label: 'Meters Skied',
                         data: [1200, 1900, 300, 500, 200, 300],
@@ -43,6 +47,5 @@ export class MetersSkied {
                     }
                 }
         });
-        
     }
 }
