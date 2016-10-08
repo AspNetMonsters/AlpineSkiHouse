@@ -1,21 +1,22 @@
 ﻿using AlpineSkiHouse.Data;
+using AlpineSkiHouse.Models;
+using AlpineSkiHouse.Models.SkiCardViewModels;
+using AlpineSkiHouse.Security;
+using AlpineSkiHouse.Services;
+using AlpineSkiHouse.Web.Controllers;
 using AlpineSkiHouse.Web.Tests.Data;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Logging;
+using Moq;
+using Serilog;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 using Xunit;
-using Moq;
-using AlpineSkiHouse.Web.Controllers;
-using Microsoft.AspNetCore.Mvc;
-using AlpineSkiHouse.Models.SkiCardViewModels;
-using System.Security.Claims;
-using Microsoft.AspNetCore.Http;
-using AlpineSkiHouse.Models;
-using AlpineSkiHouse.Security;
-using Serilog;
-using Microsoft.Extensions.Logging;
 
 namespace AlpineSkiHouse.Web.Tests.Controllers
 {
@@ -30,7 +31,9 @@ namespace AlpineSkiHouse.Web.Tests.Controllers
                 using (SkiCardContext context =
                         new SkiCardContext(InMemoryDbContextOptionsFactory.Create<SkiCardContext>()))
                 {
-                    var controller = new SkiCardController(context, null, null, new Mock<ILogger<SkiCardController>>().Object);
+                    var logger = new Mock<ILogger<SkiCardController>>();
+                    var uploader = new Mock<IBlobFileUploadService>();
+                    var controller = new SkiCardController(context, null, null, uploader.Object, logger.Object);
                     var result = await controller.Edit(new EditSkiCardViewModel
                     {
                         Id = 2,
@@ -86,8 +89,9 @@ namespace AlpineSkiHouse.Web.Tests.Controllers
             [Fact]
             public async void EditActionShouldReturnChallengeResult()
             {
-                
-                var controller = new SkiCardController(_skiCardContext, null, _mockAuthorizationService.Object, new Mock<ILogger<SkiCardController>>().Object)
+                var logger = new Mock<ILogger<SkiCardController>>();
+                var uploader = new Mock<IBlobFileUploadService>();
+                var controller = new SkiCardController(_skiCardContext, null, _mockAuthorizationService.Object, uploader.Object, logger.Object)
                 {
                     ControllerContext = _controllerContext
                 };
@@ -120,6 +124,7 @@ namespace AlpineSkiHouse.Web.Tests.Controllers
                 _skiCardContext.Dispose();
             }
         }
+
     }
 }
 
