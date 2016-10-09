@@ -12,6 +12,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AlpineSkiHouse.Web.Test", "test\AlpineSkiHouse.Web.Test\AlpineSkiHouse.Web.Test.xproj", "{C47DD736-721B-4E16-8255-6AF6B3FD2307}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AlpineSkiHouse.WebJobs", "src\AlpineSkiHouse.WebJobs\AlpineSkiHouse.WebJobs.xproj", "{81C7D405-C676-480C-88AA-9A270D28D903}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -26,6 +28,10 @@ Global
 		{C47DD736-721B-4E16-8255-6AF6B3FD2307}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C47DD736-721B-4E16-8255-6AF6B3FD2307}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C47DD736-721B-4E16-8255-6AF6B3FD2307}.Release|Any CPU.Build.0 = Release|Any CPU
+		{81C7D405-C676-480C-88AA-9A270D28D903}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{81C7D405-C676-480C-88AA-9A270D28D903}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{81C7D405-C676-480C-88AA-9A270D28D903}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{81C7D405-C676-480C-88AA-9A270D28D903}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
