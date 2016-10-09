@@ -8,6 +8,6 @@ namespace AlpineSkiHouse.Events
 {
     public class SkiCardImageUploaded : IAsyncNotification
     {
-        public string FileUri { get; set; }
+        public string FileName { get; set; }
     }
 }

@@ -104,7 +104,7 @@ namespace AlpineSkiHouse.Web.Controllers
                 {
                     _logger.LogInformation($"Uploading ski card image for {userId}");
                     imageId = Guid.NewGuid();
-                    var imageUri = await _uploadservice.UploadFileFromStream("cardimages", imageId.ToString(), viewModel.CardImage.OpenReadStream());
+                    var imageUri = await _uploadservice.UploadFileFromStream("cardimages", $"{imageId}.jpg", viewModel.CardImage.OpenReadStream());
                 }
 
                 _logger.LogInformation($"Saving ski card to DB for {userId}");
