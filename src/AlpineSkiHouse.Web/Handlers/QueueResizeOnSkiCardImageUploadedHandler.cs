@@ -33,11 +33,10 @@ namespace AlpineSkiHouse.Handlers
             await imageQueue.CreateIfNotExistsAsync();
 
             // prepare and send the message to the queue
-            var messageBody = JsonConvert.SerializeObject(notification);
-            var message = new CloudQueueMessage(messageBody);
+            var message = new CloudQueueMessage(notification.FileName);
             await imageQueue.AddMessageAsync(message);
 
-            _logger.LogInformation($"Published image uploaded message for {notification.FileUri} to queue.");
+            _logger.LogInformation($"Published image uploaded message for {notification.FileName} to queue.");
         }
     }
 }

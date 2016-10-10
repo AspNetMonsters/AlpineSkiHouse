@@ -40,9 +40,8 @@ namespace AlpineSkiHouse.Services
             _logger.LogInformation($"Ski card image uploaded as {targetFilename}");
 
             // publish event that image was uploaded
-            var blobUri = blob?.Uri.ToString();
-            await _bus.PublishAsync(new SkiCardImageUploaded { FileUri = blobUri });
-            return blobUri;
+            await _bus.PublishAsync(new SkiCardImageUploaded { FileName = targetFilename });
+            return blob?.Uri.ToString();
         }
 
     }
