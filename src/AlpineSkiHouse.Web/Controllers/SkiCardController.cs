@@ -92,23 +92,23 @@ namespace AlpineSkiHouse.Web.Controllers
                 return View(viewModel);
 
             // create and save the card
-            var userId = _userManager.GetUserId(User);
-            _logger.LogDebug($"Creating ski card for {userId}");
+            string userId = _userManager.GetUserId(User);
+            _logger.LogDebug($"Creating ski card for " + userId);
 
-            using (_logger.BeginScope($"CreateSkiCard:{userId}"))
+            using (_logger.BeginScope("CreateSkiCard:" + userId))
             {
                 var createImage = viewModel.CardImage != null;
                 Guid? imageId = null;
 
                 if (createImage)
                 {
-                    _logger.LogInformation($"Uploading ski card image for {userId}");
+                    _logger.LogInformation("Uploading ski card image for " + userId);
                     imageId = Guid.NewGuid();
-                    var imageUri = await _uploadservice.UploadFileFromStream("cardimages", $"{imageId}.jpg", viewModel.CardImage.OpenReadStream());
+                    string imageUri = await _uploadservice.UploadFileFromStream("cardimages", imageId + ".jpg", viewModel.CardImage.OpenReadStream());
                 }
 
-                _logger.LogInformation($"Saving ski card to DB for {userId}");
-                SkiCard skiCard = new SkiCard
+                _logger.LogInformation("Saving ski card to DB for " + userId);
+                SkiCard s = new SkiCard
                 {
                     ApplicationUserId = userId,
                     CreatedOn = DateTime.UtcNow,
@@ -118,13 +118,13 @@ namespace AlpineSkiHouse.Web.Controllers
                     CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber,
                     CardImageId = imageId
                 };
-                _skiCardContext.SkiCards.Add(skiCard);
+                _skiCardContext.SkiCards.Add(s);
                 await _skiCardContext.SaveChangesAsync();
 
-                _logger.LogInformation($"Ski card created for {userId}");
+                _logger.LogInformation("Ski card created for " + userId);
             }
 
-            _logger.LogDebug($"Ski card for {userId} created successfully, redirecting to Index...");
+            _logger.LogDebug("Ski card for " + userId + " created successfully, redirecting to Index...");
             return RedirectToAction(nameof(Index));
 
         }
