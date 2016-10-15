@@ -1,9 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Mvc.Localization
+
+@inject IHtmlLocalizer<SharedResources> SharedLocalizer
+
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - AlpineSkiHouse</title>
+    <title>@ViewData["Title"] - @SharedLocalizer["AlpineSkiHouse"]</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
@@ -46,6 +50,7 @@
         <hr />
         @await Component.InvokeAsync("CallCenterStatus")
         <footer>
+            @await Html.PartialAsync("_CurrentLanguage")
             <p>&copy; @DateTime.Now.Year.ToString() - AlpineSkiHouse</p>
         </footer>
     </div>

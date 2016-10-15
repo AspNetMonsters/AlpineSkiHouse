@@ -7,7 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using AlpineSkiHouse.Services;
 using Microsoft.Extensions.Logging;
 
-namespace AlpineSkiHouse.Controllers
+namespace AlpineSkiHouse.Web.Controllers
 {
     public class HomeController : Controller
     {

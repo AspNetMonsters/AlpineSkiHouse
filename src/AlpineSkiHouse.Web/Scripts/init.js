@@ -1,15 +1,15 @@
-System.register(["./Pages/Home/Index"], function(exports_1, context_1) {
+System.register(["./Pages/Home/Index"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Index_1;
-    var index;
+    var Index_1, index;
     return {
-        setters:[
+        setters: [
             function (Index_1_1) {
                 Index_1 = Index_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             index = new Index_1.Index();
         }
-    }
+    };
 });

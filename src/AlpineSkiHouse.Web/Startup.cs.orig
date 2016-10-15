@@ -22,10 +22,13 @@ using Serilog.Filters;
 using Serilog.Core;
 using AlpineSkiHouse.Configuration.Models;
 using Microsoft.Extensions.Options;
+<<<<<<< HEAD
+using AlpineSkiHouse.Conventions;
+=======
 using System.Globalization;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Mvc.Razor;
-using AlpineSkiHouse.Conventions;
+>>>>>>> Weak support for French Canada
 
 namespace AlpineSkiHouse
 {
@@ -80,12 +83,14 @@ namespace AlpineSkiHouse
             services.Configure<CsrInformationOptions>(Configuration.GetSection("CsrInformationOptions"));
             services.AddScoped<ICsrInformationService, CsrInformationService>();
 
-            services.AddLocalization(options => options.ResourcesPath = "Resources");
-
+<<<<<<< HEAD
             services.AddMvc(mvcOptions =>
             {
                 mvcOptions.Conventions.Add(new AutoValidateAntiForgeryTokenModelConvention());
-            })
+=======
+            services.AddLocalization(options => options.ResourcesPath = "Resources");
+
+            services.AddMvc()
                 .AddViewLocalization()
                 .AddDataAnnotationsLocalization();
 
@@ -101,6 +106,7 @@ namespace AlpineSkiHouse
                 options.DefaultRequestCulture = new RequestCulture("en-CA");
                 options.SupportedCultures = supportedCultures;
                 options.SupportedUICultures = supportedCultures;
+>>>>>>> Weak support for French Canada
             });
 
             if (!CurrentEnvironment.IsDevelopment())
