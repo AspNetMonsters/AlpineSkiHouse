@@ -1,6 +1,7 @@
 ﻿using AlpineSkiHouse.Data;
 using AlpineSkiHouse.Events;
 using AlpineSkiHouse.Models;
+using AlpineSkiHouse.Services;
 using MediatR;
 using System;
 using System.Collections.Generic;
@@ -11,24 +12,26 @@ namespace AlpineSkiHouse.Handlers
     {
         private readonly PassContext _passContext;
         private readonly IMediator _bus;
+        private readonly IDateService _dateService;
 
-        public AddSkiPassOnPurchaseCompleted(PassContext passContext, IMediator bus)
+        public AddSkiPassOnPurchaseCompleted(PassContext passContext, IMediator bus, IDateService dateService)
         {
+            _dateService = dateService;
             _passContext = passContext;
             _bus = bus;
         }
 
         public void Handle(PurchaseCompleted notification)
         {
-            var newPasses = new List<Pass>();   
+            var newPasses = new List<Pass>();
             foreach (var passPurchase in notification.Passes)
             {
                 Pass pass = new Pass
                 {
                     CardId = passPurchase.CardId,
-                    CreatedOn = DateTime.UtcNow,
+                    CreatedOn = _dateService.Now(),
                     PassTypeId = passPurchase.PassTypeId
-                };                
+                };
                 newPasses.Add(pass);
             }
 
