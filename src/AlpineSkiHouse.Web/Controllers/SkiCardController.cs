@@ -24,7 +24,7 @@ namespace AlpineSkiHouse.Web.Controllers
         private readonly IAuthorizationService _authorizationService;
         private ILogger<SkiCardController> _logger;
 
-        public SkiCardController(SkiCardContext skiCardContext, 
+        public SkiCardController(SkiCardContext skiCardContext,
                                     UserManager<ApplicationUser> userManager,
                                     IAuthorizationService authorizationService,
                                     IBlobFileUploadService uploadservice,
@@ -49,7 +49,7 @@ namespace AlpineSkiHouse.Web.Controllers
                     CardHolderName = s.CardHolderFirstName + " " + s.CardHolderLastName
                 })
                 .ToListAsync();
-                
+
             return View(skiCardsViewModels);
         }
 
@@ -82,33 +82,33 @@ namespace AlpineSkiHouse.Web.Controllers
             return View(viewModel);
         }
 
-        // POST: SkiCard/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<ActionResult> Create(CreateSkiCardViewModel viewModel)
+        private async Task<Guid> UploadImage(CreateSkiCardViewModel viewModel, string userId)
         {
-            // return to view if the modelstate is invalid
-            if (!ModelState.IsValid)
-                return View(viewModel);
+            Guid imageId;
+            _logger.LogInformation("Uploading ski card image for " + userId);
+            imageId = Guid.NewGuid();
+            await _uploadservice.UploadFileFromStream("cardimages", $"{imageId}.jpg", viewModel.CardImage.OpenReadStream());
+            return imageId;
+        }
+        private bool HasCardImage(CreateSkiCardViewModel viewModel)
+        {
+            return viewModel.CardImage != null;
+        }
+        private async Task CreateAndSaveCard(CreateSkiCardViewModel viewModel)
+        {
+            var userId = _userManager.GetUserId(User);
+            _logger.LogDebug($"Creating ski card for {userId}");
 
-            // create and save the card
-            string userId = _userManager.GetUserId(User);
-            _logger.LogDebug($"Creating ski card for " + userId);
-
-            using (_logger.BeginScope("CreateSkiCard:" + userId))
+            using (_logger.BeginScope($"CreateSkiCard: {userId}"))
             {
-                var createImage = viewModel.CardImage != null;
                 Guid? imageId = null;
-
-                if (createImage)
+                if (HasCardImage(viewModel))
                 {
-                    _logger.LogInformation("Uploading ski card image for " + userId);
-                    imageId = Guid.NewGuid();
-                    string imageUri = await _uploadservice.UploadFileFromStream("cardimages", imageId + ".jpg", viewModel.CardImage.OpenReadStream());
+                    imageId = await UploadImage(viewModel, userId);
                 }
 
-                _logger.LogInformation("Saving ski card to DB for " + userId);
-                SkiCard s = new SkiCard
+                _logger.LogInformation($"Saving ski card to DB for {userId}");
+                var skiCard = new SkiCard
                 {
                     ApplicationUserId = userId,
                     CreatedOn = DateTime.UtcNow,
@@ -118,15 +118,24 @@ namespace AlpineSkiHouse.Web.Controllers
                     CardHolderPhoneNumber = viewModel.CardHolderPhoneNumber,
                     CardImageId = imageId
                 };
-                _skiCardContext.SkiCards.Add(s);
+                _skiCardContext.SkiCards.Add(skiCard);
                 await _skiCardContext.SaveChangesAsync();
 
                 _logger.LogInformation("Ski card created for " + userId);
             }
+        }
+        // POST: SkiCard/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<ActionResult> Create(CreateSkiCardViewModel viewModel)
+        {
+            if (!ModelState.IsValid)
+                return View(viewModel);
 
-            _logger.LogDebug("Ski card for " + userId + " created successfully, redirecting to Index...");
+            await CreateAndSaveCard(viewModel);
+
+            _logger.LogDebug($"Ski card for {_userManager.GetUserId(User)} created successfully, redirecting to Index...");
             return RedirectToAction(nameof(Index));
-
         }
 
         // GET: SkiCard/Edit/5
@@ -151,7 +160,7 @@ namespace AlpineSkiHouse.Web.Controllers
                 CardHolderBirthDate = skiCard.CardHolderBirthDate,
                 CardHolderPhoneNumber = skiCard.CardHolderPhoneNumber
             };
-           
+
             if (await _authorizationService.AuthorizeAsync(User, skiCard, new EditSkiCardAuthorizationRequirement()))
             {
                 return View(skiCardViewModel);
@@ -170,7 +179,7 @@ namespace AlpineSkiHouse.Web.Controllers
             if (ModelState.IsValid)
             {
                 var skiCard = await _skiCardContext.SkiCards
-                            .SingleOrDefaultAsync(s => s.Id == viewModel.Id);              
+                            .SingleOrDefaultAsync(s => s.Id == viewModel.Id);
 
                 if (skiCard == null)
                 {
@@ -189,9 +198,9 @@ namespace AlpineSkiHouse.Web.Controllers
                 }
                 else
                 {
-                    return new  ChallengeResult();
+                    return new ChallengeResult();
                 }
-            }            
+            }
             return View(viewModel);
         }
     }
