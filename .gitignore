@@ -241,3 +241,4 @@ _Pvt_Extensions
 .fake/
 
 **/wwwroot/js/
+src/AlpineSkiHouse.Web/bower_components/

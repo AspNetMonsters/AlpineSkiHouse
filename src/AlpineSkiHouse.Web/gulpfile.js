@@ -21,7 +21,7 @@ var paths = {
     ts: sourceroot + "**/*.ts",
     tsDefintionFiles: "npm_modules/@types/**/*.d.ts",
     minJs: webroot + "js/**/*.min.js",
-    sass: "style/**/*.sass",
+    sass: "style/**/*.s*ss",
     sassDest: webroot + "css",
     images: "images/**/*.*",
     imagesDest: webroot + "images",
