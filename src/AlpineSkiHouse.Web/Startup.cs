@@ -79,7 +79,6 @@ namespace AlpineSkiHouse
 
             services.AddMvc(mvcOptions =>
             {
-                mvcOptions.Conventions.Add(new CustomApplicationModelConvention());
                 mvcOptions.Conventions.Add(new AutoValidateAntiForgeryTokenModelConvention());
             });
 
