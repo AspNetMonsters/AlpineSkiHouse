@@ -22,6 +22,7 @@ using Serilog.Filters;
 using Serilog.Core;
 using AlpineSkiHouse.Configuration.Models;
 using Microsoft.Extensions.Options;
+using AlpineSkiHouse.Conventions;
 
 namespace AlpineSkiHouse
 {
@@ -76,7 +77,10 @@ namespace AlpineSkiHouse
             services.Configure<CsrInformationOptions>(Configuration.GetSection("CsrInformationOptions"));
             services.AddScoped<ICsrInformationService, CsrInformationService>();
 
-            services.AddMvc();
+            services.AddMvc(mvcOptions =>
+            {
+                mvcOptions.Conventions.Add(new AutoValidateAntiForgeryTokenModelConvention());
+            });
 
             if (!CurrentEnvironment.IsDevelopment())
             {
