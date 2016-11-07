@@ -1,14 +1,14 @@
-System.register(["./Blah"], function(exports_1, context_1) {
+System.register(["./Blah"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var Blah_1;
-    var Index;
+    var Blah_1, Index;
     return {
-        setters:[
+        setters: [
             function (Blah_1_1) {
                 Blah_1 = Blah_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             Index = (function () {
                 function Index() {
                     var b = new Blah_1.Blah();
@@ -18,5 +18,5 @@ System.register(["./Blah"], function(exports_1, context_1) {
             }());
             exports_1("Index", Index);
         }
-    }
+    };
 });

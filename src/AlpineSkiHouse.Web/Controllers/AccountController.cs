@@ -9,10 +9,13 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.Extensions.Logging;
 using AlpineSkiHouse.Models;
-using AlpineSkiHouse.Models.AccountViewModels;
+using AlpineSkiHouse.Web.Models.AccountViewModels;
 using AlpineSkiHouse.Services;
+using Microsoft.Extensions.Localization;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 
-namespace AlpineSkiHouse.Controllers
+namespace AlpineSkiHouse.Web.Controllers
 {
     [Authorize]
     public class AccountController : Controller
@@ -22,19 +25,22 @@ namespace AlpineSkiHouse.Controllers
         private readonly IEmailSender _emailSender;
         private readonly ISmsSender _smsSender;
         private readonly ILogger _logger;
+        private readonly IStringLocalizer<AccountController> _stringLocalizer;
 
         public AccountController(
             UserManager<ApplicationUser> userManager,
             SignInManager<ApplicationUser> signInManager,
             IEmailSender emailSender,
             ISmsSender smsSender,
-            ILoggerFactory loggerFactory)
+            ILoggerFactory loggerFactory,
+            IStringLocalizer<AccountController> stringLocalizer)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _emailSender = emailSender;
             _smsSender = smsSender;
             _logger = loggerFactory.CreateLogger<AccountController>();
+            _stringLocalizer = stringLocalizer;
         }
 
         //
@@ -76,7 +82,7 @@ namespace AlpineSkiHouse.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError(string.Empty, "Invalid login attempt.");
+                    ModelState.AddModelError(string.Empty, _stringLocalizer["Invalid login attempt."]);
                     return View(model);
                 }
             }
@@ -454,7 +460,7 @@ namespace AlpineSkiHouse.Controllers
             }
             else
             {
-                ModelState.AddModelError(string.Empty, "Invalid code.");
+                ModelState.AddModelError(string.Empty, _stringLocalizer["Invalid code."]);
                 return View(model);
             }
         }

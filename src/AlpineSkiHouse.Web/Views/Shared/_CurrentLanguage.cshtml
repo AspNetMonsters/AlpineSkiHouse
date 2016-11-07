@@ -1,0 +1,12 @@
+﻿@using Microsoft.AspNetCore.Http.Features
+@using Microsoft.AspNetCore.Localization
+
+@{
+    var requestCulture = Context.Features.Get<IRequestCultureFeature>();
+}
+<div class="pull-left">
+    <a asp-controller="SelectLanguage" 
+       asp-action="Index" 
+       asp-route-returnUrl="@Context.Request.Path" >@requestCulture.RequestCulture.Culture.DisplayName</a>
+    <span> | </span>
+</div>
