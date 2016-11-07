@@ -5,7 +5,7 @@
   },
 
   "dependencies": {
-    "ImageProcessorCore": "1.0.0-alpha1058",
+    "ImageProcessorCore": "1.0.0-alpha1031",
     "Microsoft.Azure.WebJobs": "2.0.0-beta1",
     "Microsoft.Extensions.Configuration.Json": "1.0.0",
     "Microsoft.Extensions.Configuration": "1.0.0",
