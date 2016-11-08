@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.ViewComponents
 {
-    public class MetersSkiedViewComponent :ViewComponent
+    public class MetersSkiedViewComponent : ViewComponent
     {
         public IViewComponentResult Invoke()
         {

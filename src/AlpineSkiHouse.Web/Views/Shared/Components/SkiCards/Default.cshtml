@@ -2,7 +2,7 @@
 @model IEnumerable<SkiCardListViewModel>
 
 <h2>Your Ski Cards </h2>
-<a class="btn" href="SkiCard/Create"><span class="glyphicon glyphicon-plus success"></span> Add Card</a>
+<a class="btn" href="/SkiCard/Create"><span class="glyphicon glyphicon-plus success"></span> Add Card</a>
 
 <table class="table table-striped">
     <thead>
@@ -12,7 +12,7 @@
         </tr>
     </thead>
     <tbody>
-        @foreach(var card in Model)
+        @foreach (var card in Model)
         {
             <tr>
                 <td>
