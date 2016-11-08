@@ -242,3 +242,6 @@ _Pvt_Extensions
 
 **/wwwroot/js/
 src/AlpineSkiHouse.Web/bower_components/
+
+# Code rush
+.cr/
