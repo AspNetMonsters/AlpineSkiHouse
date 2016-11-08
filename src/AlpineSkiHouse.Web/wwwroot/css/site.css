@@ -35,3 +35,12 @@ textarea {
   /* Hide captions */
   .carousel-caption {
     display: none; } }
+
+.lift-list {
+  list-style: none; }
+  .lift-list .glyphicon {
+    padding-right: 10px; }
+  .lift-list .glyphicon-ok {
+    color: green; }
+  .lift-list .glyphicon-remove {
+    color: red; }
