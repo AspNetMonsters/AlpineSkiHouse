@@ -17,7 +17,7 @@ namespace AlpineSkiHouse.Web.Controllers
         public HomeController(ICsrInformationService service, ILogger<HomeController> logger)
         {
             _logger = logger;
-            _logger.LogWarning("The appplication client secret key was less than the expected length.");
+            _logger.LogWarning("The application client secret key was less than the expected length.");
             _service = service;
         }
 
