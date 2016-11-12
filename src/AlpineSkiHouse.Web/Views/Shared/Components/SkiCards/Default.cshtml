@@ -21,7 +21,13 @@
                             @card.CardHolderName
                         </td>
                         <td>
-                            <a asp-controller="SkiCard" asp-action="Edit" asp-route-id="@card.Id">Edit</a>
+                            <span>
+                                <a asp-controller="SkiCard" asp-action="Edit" asp-route-id="@card.Id">Card Details</a>
+                            </span>
+                            <span> | </span>
+                            <span>
+                                <a asp-controller="Pass" asp-action="Index" asp-route-cardId="@card.Id">Attached Passes</a>
+                            </span>
                         </td>
                     </tr>
                 }

@@ -1,0 +1,18 @@
+﻿@model AlpineSkiHouse.Web.Models.PassViewModels.ListViewModel
+
+<h2>Passes</h2>
+<a class="btn" href="Pass/Create?skiCardId=@Model.SkiCardId"><span class="glyphicon glyphicon-plus success"></span> Add Pass</a>
+
+<table class="table">
+
+    @foreach(var pass in Model.Passes)
+    {
+        <tr>
+            <td>@pass.Name</td>
+            <td>@pass.ValidFrom</td>
+            <td>@pass.ValidTo</td>
+        </tr>
+
+    }
+
+</table>
