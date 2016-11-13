@@ -7,9 +7,13 @@
         });
     });
 
-    it("should display data for the ski season", function () {
-        var div = document.createElement("div");
-        var chart = new MetersSkied.MetersSkied(div);
+    it("should display data for the ski season", function () {        
+        var wrapper = document.createElement('div');
+        var canvas = document.createElement('canvas');
+        wrapper.appendChild(canvas);
+        window.document.body.appendChild(wrapper);
+
+        var chart = new MetersSkied.MetersSkied(canvas);
         
         expect(chart.labels.length).toBe(6);
         expect(chart.labels).toContain("November");

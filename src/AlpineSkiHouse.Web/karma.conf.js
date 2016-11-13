@@ -11,7 +11,6 @@ module.exports = function(config) {
       'js/system-polyfills.js',
       'js/jspmconfig.js',
       { pattern: 'js/**/*.js', included: false, watched: true, served: true },
-      //'js/Controls/MetersSkied.js',
       '../spec/**/*Tests.js'
     ],
     reporters: ['progress'],
