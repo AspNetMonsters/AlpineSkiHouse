@@ -7,7 +7,8 @@
     "xunit": "2.1.0",
     "Moq": "4.6.38-alpha",
     "Microsoft.EntityFrameworkCore.InMemory": "1.0.0",
-    "Microsoft.Extensions.Logging": "1.0.0"
+    "Microsoft.Extensions.Logging": "1.0.0",
+    "xunit.abstractions": "2.0.0"
   },
     "testRunner": "xunit",
 
