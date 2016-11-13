@@ -7,7 +7,11 @@ using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.Web.Services
 {
+<<<<<<< HEAD
+    public class PassValidityChecker : IPassValidityChecker
+=======
     public class PassValidityChecker
+>>>>>>> WIP
     {
         PassContext _passContext;
         PassTypeContext _passTypeContext;
@@ -29,7 +33,11 @@ namespace AlpineSkiHouse.Web.Services
             var passType = _passTypeContext.PassTypes.FirstOrDefault(x => x.Id == pass.PassTypeId);
             if (passType == null)
                 return false;
+<<<<<<< HEAD
+            if (IsOutsideOfDateRange(passType))
+=======
             if (passType.ValidFrom > _dateService.Now() || passType.ValidTo < _dateService.Now())
+>>>>>>> WIP
             {
                 return false;
             }
@@ -40,7 +48,11 @@ namespace AlpineSkiHouse.Web.Services
                     return false;
                 }
 
+<<<<<<< HEAD
+                if (HasBeenPreviouslyActivatedToday(pass))
+=======
                 if (pass.Activations.OrderByDescending(x => x.Scan.DateTime).FirstOrDefault().Scan.DateTime > _dateService.Today())
+>>>>>>> WIP
                 {
                     return true;
                 }
@@ -51,5 +63,18 @@ namespace AlpineSkiHouse.Web.Services
             }
             return true;
         }
+<<<<<<< HEAD
+
+        private bool HasBeenPreviouslyActivatedToday(AlpineSkiHouse.Models.Pass pass)
+        {
+            return pass.Activations.OrderByDescending(x => x.Scan.DateTime).FirstOrDefault().Scan.DateTime > _dateService.Today();
+        }
+
+        private bool IsOutsideOfDateRange(AlpineSkiHouse.Models.PassType passType)
+        {
+            return passType.ValidFrom > _dateService.Now() || passType.ValidTo < _dateService.Now();
+        }
+=======
+>>>>>>> WIP
     }
 }
