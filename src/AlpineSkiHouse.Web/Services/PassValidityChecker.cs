@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.Web.Services
 {
-    public class PassValidityChecker
+    public class PassValidityChecker : IPassValidityChecker
     {
         PassContext _passContext;
         PassTypeContext _passTypeContext;
@@ -29,7 +29,7 @@ namespace AlpineSkiHouse.Web.Services
             var passType = _passTypeContext.PassTypes.FirstOrDefault(x => x.Id == pass.PassTypeId);
             if (passType == null)
                 return false;
-            if (passType.ValidFrom > _dateService.Now() || passType.ValidTo < _dateService.Now())
+            if (IsOutsideOfDateRange(passType))
             {
                 return false;
             }
@@ -40,7 +40,7 @@ namespace AlpineSkiHouse.Web.Services
                     return false;
                 }
 
-                if (pass.Activations.OrderByDescending(x => x.Scan.DateTime).FirstOrDefault().Scan.DateTime > _dateService.Today())
+                if (HasBeenPreviouslyActivatedToday(pass))
                 {
                     return true;
                 }
@@ -50,6 +50,16 @@ namespace AlpineSkiHouse.Web.Services
                 }
             }
             return true;
+        }
+
+        private bool HasBeenPreviouslyActivatedToday(AlpineSkiHouse.Models.Pass pass)
+        {
+            return pass.Activations.OrderByDescending(x => x.Scan.DateTime).FirstOrDefault().Scan.DateTime > _dateService.Today();
+        }
+
+        private bool IsOutsideOfDateRange(AlpineSkiHouse.Models.PassType passType)
+        {
+            return passType.ValidFrom > _dateService.Now() || passType.ValidTo < _dateService.Now();
         }
     }
 }
