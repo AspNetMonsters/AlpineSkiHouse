@@ -17,6 +17,7 @@ namespace AlpineSkiHouse.Web.Tests.Services
         private Mock<IDateService> _mockDateService;
         private PassContext _passContext;
         private PassTypeContext _passTypeContext;
+
         public PassValidityCheckerTests()
         {
             _mockDateService = new Mock<IDateService>();
@@ -27,35 +28,6 @@ namespace AlpineSkiHouse.Web.Tests.Services
         private PassValidityChecker GetInstance()
         {
             return new PassValidityChecker(_mockDateService.Object, _passContext, _passTypeContext);
-        }
-
-        [Fact]
-        public void Should_be_invalid_if_pass_does_not_exist()
-        {
-            var checker = GetInstance();
-            Assert.False(checker.IsValid(1));
-        }
-
-        [Fact]
-        public void Should_be_invalid_if_current_time_is_before_valid_date()
-        {
-            _mockDateService.Setup(x => x.Now()).Returns(new DateTime(2001, 01, 01));
-            var passType = new PassType
-            {
-                ValidFrom = new DateTime(2010, 01, 01),
-                ValidTo = new DateTime(2011, 01, 01)
-            };
-            _passTypeContext.PassTypes.Add(passType);
-            _passTypeContext.SaveChanges();
-            var pass = new Pass
-            {
-                CreatedOn = DateTime.UtcNow,
-                PassTypeId = passType.Id
-            };
-            _passContext.Add(pass);
-            _passContext.SaveChanges();
-            var checker = GetInstance();
-            Assert.False(checker.IsValid(pass.Id));
         }
 
         [Fact]
@@ -79,28 +51,27 @@ namespace AlpineSkiHouse.Web.Tests.Services
             var checker = GetInstance();
             Assert.False(checker.IsValid(pass.Id));
         }
+
         [Fact]
-        public void Should_be_valid_if_current_time_is_in_window_and_activations_less_than_allowed()
+        public void Should_be_invalid_if_current_time_is_before_valid_date()
         {
-            _mockDateService.Setup(x => x.Now()).Returns(new DateTime(2010, 06, 01));
+            _mockDateService.Setup(x => x.Now()).Returns(new DateTime(2001, 01, 01));
             var passType = new PassType
             {
                 ValidFrom = new DateTime(2010, 01, 01),
-                ValidTo = new DateTime(2011, 01, 01),
-                MaxActivations = 10
+                ValidTo = new DateTime(2011, 01, 01)
             };
             _passTypeContext.PassTypes.Add(passType);
             _passTypeContext.SaveChanges();
             var pass = new Pass
             {
                 CreatedOn = DateTime.UtcNow,
-                PassTypeId = passType.Id,
-                Activations = new List<PassActivation>()
+                PassTypeId = passType.Id
             };
             _passContext.Add(pass);
             _passContext.SaveChanges();
             var checker = GetInstance();
-            Assert.True(checker.IsValid(pass.Id));
+            Assert.False(checker.IsValid(pass.Id));
         }
 
         [Fact]
@@ -128,6 +99,41 @@ namespace AlpineSkiHouse.Web.Tests.Services
             _passContext.SaveChanges();
             var checker = GetInstance();
             Assert.False(checker.IsValid(pass.Id));
+        }
+
+        [Fact]
+        public void Should_be_invalid_if_current_time_is_in_window_and_activations_greater_than_allowed()
+        {
+            _mockDateService.Setup(x => x.Now()).Returns(new DateTime(2010, 06, 01));
+            var passType = new PassType
+            {
+                ValidFrom = new DateTime(2010, 01, 01),
+                ValidTo = new DateTime(2011, 01, 01),
+                MaxActivations = 1
+            };
+            _passTypeContext.PassTypes.Add(passType);
+            _passTypeContext.SaveChanges();
+            var pass = new Pass
+            {
+                CreatedOn = DateTime.UtcNow,
+                PassTypeId = passType.Id,
+                Activations = new List<PassActivation>
+                {
+                    new PassActivation(),
+                    new PassActivation()
+                }
+            };
+            _passContext.Add(pass);
+            _passContext.SaveChanges();
+            var checker = GetInstance();
+            Assert.False(checker.IsValid(pass.Id));
+        }
+
+        [Fact]
+        public void Should_be_invalid_if_pass_does_not_exist()
+        {
+            var checker = GetInstance();
+            Assert.False(checker.IsValid(1));
         }
 
         [Fact]
@@ -161,16 +167,15 @@ namespace AlpineSkiHouse.Web.Tests.Services
             var checker = GetInstance();
             Assert.True(checker.IsValid(pass.Id));
         }
-
         [Fact]
-        public void Should_be_invalid_if_current_time_is_in_window_and_activations_greater_than_allowed()
+        public void Should_be_valid_if_current_time_is_in_window_and_activations_less_than_allowed()
         {
             _mockDateService.Setup(x => x.Now()).Returns(new DateTime(2010, 06, 01));
             var passType = new PassType
             {
                 ValidFrom = new DateTime(2010, 01, 01),
                 ValidTo = new DateTime(2011, 01, 01),
-                MaxActivations = 1
+                MaxActivations = 10
             };
             _passTypeContext.PassTypes.Add(passType);
             _passTypeContext.SaveChanges();
@@ -178,16 +183,12 @@ namespace AlpineSkiHouse.Web.Tests.Services
             {
                 CreatedOn = DateTime.UtcNow,
                 PassTypeId = passType.Id,
-                Activations = new List<PassActivation>
-                {
-                    new PassActivation(),
-                    new PassActivation()
-                }
+                Activations = new List<PassActivation>()
             };
             _passContext.Add(pass);
             _passContext.SaveChanges();
             var checker = GetInstance();
-            Assert.False(checker.IsValid(pass.Id));
+            Assert.True(checker.IsValid(pass.Id));
         }
     }
 }
