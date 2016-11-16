@@ -7,11 +7,11 @@ module.exports = function(config) {
 
     // list of files / patterns to load in the browser
     files: [
-      'js/system.js',
-      'js/system-polyfills.js',
+      'jspm_packages/system.js',
+      'jspm_packages/system-polyfills.js',
       'js/jspmconfig.js',
       { pattern: 'js/**/*.js', included: false, watched: true, served: true },
-      //'js/Controls/MetersSkied.js',
+      { pattern: 'jspm_packages/**/*.js', included: false, watched: false, served: true },
       '../spec/**/*Tests.js'
     ],
     reporters: ['progress'],
