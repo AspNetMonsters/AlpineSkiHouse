@@ -22,9 +22,9 @@ namespace AlpineSkiHouse.Models
 
         public string Description { get; set; }
 
-        public DateTime ValidFrom { get; set; }
+        public DateTime? ValidFrom { get; set; }
 
-        public DateTime ValidTo { get; set; }
+        public DateTime? ValidTo { get; set; }
 
         /// <summary>
         /// Maximum number of times a pass of this type can be activated.
