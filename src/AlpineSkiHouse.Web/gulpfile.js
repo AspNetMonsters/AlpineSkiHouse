@@ -29,6 +29,7 @@ var paths = {
     minCss: webroot + "css/**/*.min.css",
     concatJsDest: webroot + "js/site.min.js",
     jsDest: webroot + "js/",
+    jsPackages: `${webroot}/jspm_packages`,
     concatCssDest: webroot + "css/site.min.css"
 };
 
@@ -46,7 +47,7 @@ gulp.task("stage-loader", function () {
     gulp.src(paths.loaderConfig)
         .pipe(gulp.dest(paths.jsDest));
     return gulp.src(paths.loader)
-        .pipe(gulp.dest(paths.jsDest));
+        .pipe(gulp.dest(paths.jsPackages));
 });
 
 gulp.task("typescript", function(){
