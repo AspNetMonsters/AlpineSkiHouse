@@ -21,7 +21,7 @@ var paths = {
     ts: sourceroot + "**/*.ts",
     tsDefintionFiles: "npm_modules/@types/**/*.d.ts",
     minJs: webroot + "js/**/*.min.js",
-    sass: "style/**/*.s*ss",
+    sass: "style/**/bootstrap-alpine.scss",
     sassDest: webroot + "css",
     images: "images/**/*.*",
     imagesDest: webroot + "images",
@@ -30,7 +30,7 @@ var paths = {
     concatJsDest: webroot + "js/site.min.js",
     jsDest: webroot + "js/",
     jsPackages: `${webroot}/jspm_packages`,
-    concatCssDest: webroot + "css/site.min.css"
+    concatCssDest: webroot + "css/bootstrap-alpine.min.css"
 };
 
 gulp.task("clean:js", function (cb) {
