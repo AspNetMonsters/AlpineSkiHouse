@@ -1,4 +1,4 @@
-﻿/// <binding Clean='clean' />
+﻿/// <binding Clean='clean' ProjectOpened='watch' />
 "use strict";
 
 var gulp = require("gulp"),
@@ -10,7 +10,9 @@ var gulp = require("gulp"),
     rename = require("gulp-rename2"),
     watch = require("gulp-watch"),
     imageop = require('gulp-image-optimization'),
-    sass = require("gulp-sass");
+    sass = require("gulp-sass"),
+    merge = require("merge-stream"),
+    plumber = require("gulp-plumber");
 
 var webroot = "./wwwroot/";
 var sourceroot = "./Scripts/"
@@ -44,10 +46,11 @@ gulp.task("clean:css", function (cb) {
 gulp.task("clean", ["clean:js", "clean:css"]);
 
 gulp.task("stage-loader", function () {
-    gulp.src(paths.loaderConfig)
-        .pipe(gulp.dest(paths.jsDest));
-    return gulp.src(paths.loader)
+    var config = gulp.src(paths.loaderConfig)
+                    .pipe(gulp.dest(paths.jsDest));
+    var packages = gulp.src(paths.loader)
         .pipe(gulp.dest(paths.jsPackages));
+    return merge(config, packages);
 });
 
 gulp.task("typescript", function(){
@@ -73,7 +76,9 @@ gulp.task("min:js", function () {
 
 gulp.task("sass", function(){
     return gulp.src(paths.sass)
+        .pipe(plumber({ errorHandler: handleError }))
         .pipe(sass())
+        .pipe(plumber.stop())
         .pipe(gulp.dest(paths.sassDest));
 });
 
@@ -99,5 +104,11 @@ gulp.task("min", ["min:js", "min:css"]);
 gulp.task("default", ["stage-loader", "typescript", "sass", "images"]);
 
 gulp.task("watch", ["default"], function () {
+    gulp.watch("style/**/*.s*ss", ["sass"]);
     return gulp.watch(paths.ts, ["typescript"]);
 });
+
+function handleError(err) {
+    console.log(err.toString());
+    this.emit('end');
+}
