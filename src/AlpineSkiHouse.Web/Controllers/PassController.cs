@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.Web.Controllers
 {
+    [Authorize]
     public class PassController : Controller
     {
         PassContext _passContext;
