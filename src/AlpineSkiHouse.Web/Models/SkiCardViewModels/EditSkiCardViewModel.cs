@@ -18,6 +18,7 @@ namespace AlpineSkiHouse.Models.SkiCardViewModels
 
         [Display(Name = "Birth Date")]
         [Required]
+        [DataType(DataType.Date)]
         public DateTime? CardHolderBirthDate { get; set; }
 
         [Display(Name = "Phone Number")]
