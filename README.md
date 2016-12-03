@@ -54,10 +54,15 @@ From the src/AlpineSkiHouse.Web folder, run the `dotnet ef database update comma
 ```
 dotnet ef database update --context AlpineSkiHouse.Data.ApplicationUserContext
 dotnet ef database update --context AlpineSkiHouse.Data.ResortContext
-dotnet ef database update --context AlpineSkiHouse.Data.PasTypeContext
+dotnet ef database update --context AlpineSkiHouse.Data.PassTypeContext
 dotnet ef database update --context AlpineSkiHouse.Data.SkiCardContext
 dotnet ef database update --context AlpineSkiHouse.Data.PassContext
 ```
+
+## Image Attribution
+Images on this project found by Creative Common search on [Bing Image Search](http://www.bing.com/images/search?pq=mountain+ski+resort&sc=0-16&sp=-1&sk=&q=mountain+ski+resort&qft=+filterui:licenseType-Any+filterui:imagesize-large&FORM=R5IR3) and used under [CC BY The ASP.NET Monsters](https://creativecommons.org/licenses/by/2.0/).
+
+Artwork on this project is a derivative of images found by Creative Common search on [Bing Image Search](http://www.bing.com/images/search?pq=mountain+ski+resort&sc=0-16&sp=-1&sk=&q=mountain+ski+resort&qft=+filterui:licenseType-Any+filterui:imagesize-large&FORM=R5IR3), and licensed under [CC BY The ASP.NET Monsters](https://creativecommons.org/licenses/by/2.0/).
 
 
 

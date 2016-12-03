@@ -11,16 +11,15 @@
         Add a pass to your card
     </p>
     <div class="form-group">
-        <label asp-for="PassTypeId" class="col-md-2 control-label"></label>
+        <label asp-for="PassTypeId"></label>
         <input asp-for="CardId" type="hidden" />
-        <div class="col-md-10">
-            <select asp-for="PassTypeId" asp-items="_passTypeContext.PassTypes.Select(x=> new SelectListItem { Text = x.Name, Value = x.Id.ToString() })" class="form-control"></select>
-            <span asp-validation-for="PassTypeId" class="text-danger"></span>
-        </div>
+        <select asp-for="PassTypeId" asp-items="_passTypeContext.PassTypes.Select(x=> new SelectListItem { Text = x.Name, Value = x.Id.ToString() })" class="form-control"></select>
+        <span asp-validation-for="PassTypeId" class="text-danger"></span>
+
     </div>
 
     <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
+        <div class="col-md-offset-2">
             <button type="submit" class="btn btn-default">Create Pass</button>
         </div>
     </div>

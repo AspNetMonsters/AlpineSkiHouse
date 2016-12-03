@@ -1,6 +1,7 @@
 ﻿using AlpineSkiHouse.Data;
 using AlpineSkiHouse.Models;
 using AlpineSkiHouse.Web.Models.PassViewModels;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.Web.Controllers
 {
+    [Authorize]
     public class PassController : Controller
     {
         PassContext _passContext;
