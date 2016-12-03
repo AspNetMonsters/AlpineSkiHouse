@@ -39,7 +39,10 @@
         <hr />
         @await Component.InvokeAsync("CallCenterStatus")
         <footer>
-            <p>@await Html.PartialAsync("_CurrentLanguage") &copy; @DateTime.Now.Year.ToString() - AlpineSkiHouse</p>
+            <p>
+                @await Html.PartialAsync("_CurrentLanguage") &copy; @DateTime.Now.Year.ToString() - AlpineSkiHouse
+                | <a asp-controller="Home" asp-action="About">Developer Information</a>
+            </p>
         </footer>
     </div>
 

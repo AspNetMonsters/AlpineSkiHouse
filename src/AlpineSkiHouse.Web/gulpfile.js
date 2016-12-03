@@ -25,7 +25,7 @@ var paths = {
     minJs: webroot + "js/**/*.min.js",
     sass: "style/**/bootstrap-alpine.scss",
     sassDest: webroot + "css",
-    images: "images/**/*.*",
+    images: ["images/**/*.jpg", "images/**/*.jpeg", "images/**/*.png"],
     imagesDest: webroot + "images",
     css: webroot + "css/**/*.css",
     minCss: webroot + "css/**/*.min.css",
