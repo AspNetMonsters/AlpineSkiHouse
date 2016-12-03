@@ -42,6 +42,7 @@
       "jquery": "npm:jquery@^3.1.0",
       "jquery-validation": "github:jzaefferer/jquery-validation@^1.15.1",
       "jquery-validation-unobtrusive": "github:aspnet/jquery-validation-unobtrusive@^3.2.6",
+      "react": "npm:react@^15.4.1",
       "twbs/bootstrap": "github:twbs/bootstrap@4.0.0-alpha"
     },
     "devDependencies": {
