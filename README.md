@@ -28,7 +28,7 @@ This is the example project for the Microsoft Press book ASP.Net Core Applicatio
     bower install
     jspm install
   ```
-_Note:_ This step requires that yarn, bower and jpsm are all installed globally. This is typically done using the node package manager (npm) that ships as part of [node](https://nodejs.org/en/).
+  _Note:_ This step requires that yarn, bower and jpsm are all installed globally. This is typically done using the node package manager (npm) that ships as part of [node](https://nodejs.org/en/).
 
   ```
     npm install yarn -g
@@ -37,10 +37,10 @@ _Note:_ This step requires that yarn, bower and jpsm are all installed globally.
   ```
 
 5. Run gulp
-```
-gulp
-```
-_Note:_ This step requires that gulp is installed globally. 
+  ```
+  gulp
+    ```
+  _Note:_ This step requires that gulp is installed globally. 
 
   ```
      npm install gulp -g
