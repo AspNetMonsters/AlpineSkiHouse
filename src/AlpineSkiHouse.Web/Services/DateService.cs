@@ -11,5 +11,10 @@ namespace AlpineSkiHouse.Services
         {
             return DateTime.UtcNow;
         }
+
+        public DateTime Today()
+        {
+            return DateTime.UtcNow.Subtract(DateTime.UtcNow.TimeOfDay);
+        }
     }
 }

@@ -6,6 +6,7 @@ namespace AlpineSkiHouse.Services
 {
     public interface IDateService
     {
+        DateTime Today();
         DateTime Now();
     }
 }

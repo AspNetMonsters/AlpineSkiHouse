@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -16,6 +17,7 @@ namespace AlpineSkiHouse.Models
 
         public int CardId { get; set; }
 
+        [Display(Name ="Pass Type")]
         public int PassTypeId { get; set; }
 
         public DateTime CreatedOn { get; set; }
