@@ -4,9 +4,11 @@
 
 <!DOCTYPE html>
 <html>
+
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <title>@ViewData["Title"] - @SharedLocalizer["AlpineSkiHouse"]</title>
 
     <environment names="Development">
@@ -20,35 +22,24 @@
     <script src="~/js/jspmconfig.js"></script>
     @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
+
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-controller="Home" asp-action="Index" class="navbar-brand">AlpineSkiHouse</a>
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-controller="Conditions" asp-action="Index">Hill Conditions</a></li>
-                    <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
-                @await Html.PartialAsync("_LoginPartial")
-            </div>
-        </div>
-    </div>
+    <nav class="navbar navbar-dark bg-inverse navbar-fixed-top">
+        <a class="navbar-brand" asp-controller="Home" asp-action="Index">Alpine Ski House</a>
+        <ul class="nav navbar-nav">
+            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Index">Home</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Conditions" asp-action="Index">Hill Conditions</a></li>
+            <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
+        </ul>
+        @await Html.PartialAsync("_LoginPartial")
+    </nav>
+
     <div class="container body-content">
         @RenderBody()
         <hr />
         @await Component.InvokeAsync("CallCenterStatus")
         <footer>
-            @await Html.PartialAsync("_CurrentLanguage")
-            <p>&copy; @DateTime.Now.Year.ToString() - AlpineSkiHouse</p>
+            <p>@await Html.PartialAsync("_CurrentLanguage") &copy; @DateTime.Now.Year.ToString() - AlpineSkiHouse</p>
         </footer>
     </div>
 
