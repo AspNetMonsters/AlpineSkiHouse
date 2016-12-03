@@ -59,5 +59,10 @@ dotnet ef database update --context AlpineSkiHouse.Data.SkiCardContext
 dotnet ef database update --context AlpineSkiHouse.Data.PassContext
 ```
 
+## Image Attribution
+Images on this site found by Creative Common search on [Bing Image Search](http://www.bing.com/images/search?pq=mountain+ski+resort&sc=0-16&sp=-1&sk=&q=mountain+ski+resort&qft=+filterui:licenseType-Any+filterui:imagesize-large&FORM=R5IR3) and used under [CC BY The ASP.NET Monsters](https://creativecommons.org/licenses/by/2.0/).
+
+Artwork on this site is a derivative of images found by Creative Common search on [Bing Image Search](http://www.bing.com/images/search?pq=mountain+ski+resort&sc=0-16&sp=-1&sk=&q=mountain+ski+resort&qft=+filterui:licenseType-Any+filterui:imagesize-large&FORM=R5IR3), and licensed under [CC BY The ASP.NET Monsters](https://creativecommons.org/licenses/by/2.0/).
+
 
 
