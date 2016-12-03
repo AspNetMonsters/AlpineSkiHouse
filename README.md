@@ -22,15 +22,42 @@ This is the example project for the Microsoft Press book ASP.Net Core Applicatio
   }
 }
 ```
-4. Restore packages
+4. Restore packages. 
   ```
     yarn install
     bower install
     jspm install
+  ```
+_Note:_ This step requires that yarn, bower and jpsm are all installed globally. This is typically done using the node package manager (npm) that ships as part of [node](https://nodejs.org/en/).
+
+  ```
+    npm install yarn -g
+    npm install bower -g
+    npm install jspm -g
   ```
 
 5. Run gulp
 ```
 gulp
 ```
+_Note:_ This step requires that gulp is installed globally. 
+
+  ```
+     npm install gulp -g
+  ```
+
 6. Run the solution in visual studio
+
+## Creating and updating the database
+From the src/AlpineSkiHouse.Web folder, run the `dotnet ef database update command` for each DbContext.
+
+```
+dotnet ef database update --context AlpineSkiHouse.Data.ApplicationUserContext
+dotnet ef database update --context AlpineSkiHouse.Data.ResortContext
+dotnet ef database update --context AlpineSkiHouse.Data.PasTypeContext
+dotnet ef database update --context AlpineSkiHouse.Data.SkiCardContext
+dotnet ef database update --context AlpineSkiHouse.Data.PassContext
+```
+
+
+
