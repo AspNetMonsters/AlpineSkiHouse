@@ -10,6 +10,16 @@
   version "4.14.38"
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.38.tgz#fcbd51e740c5e260652cad975dd26c5c4151cb11"
 
+"@types/react-dom@^0.14.19":
+  version "0.14.19"
+  resolved "https://registry.yarnpkg.com/@types/react-dom/-/react-dom-0.14.19.tgz#698a14335e32fb1bc61db65f5647c9668a7fc2eb"
+  dependencies:
+    "@types/react" "*"
+
+"@types/react@*", "@types/react@^0.14.52":
+  version "0.14.52"
+  resolved "https://registry.yarnpkg.com/@types/react/-/react-0.14.52.tgz#3bdfe5c9fe7aca2c6600ee1b0363f4b7acc69c93"
+
 abbrev@1:
   version "1.0.9"
   resolved "https://registry.yarnpkg.com/abbrev/-/abbrev-1.0.9.tgz#91b4792588a7738c25f35dd6f63752a2f8776135"
@@ -2737,15 +2747,9 @@ meow@^3.3.0, meow@^3.7.0:
     redent "^1.0.0"
     trim-newlines "^1.0.0"
 
-merge-stream@1.0.1:
+merge-stream@1.0.1, merge-stream@^1.0.0:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-1.0.1.tgz#4041202d508a342ba00174008df0c251b8c135e1"
-  dependencies:
-    readable-stream "^2.0.1"
-
-merge-stream@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/merge-stream/-/merge-stream-1.0.0.tgz#9cfd156fef35421e2b5403ce11dc6eb1962b026e"
   dependencies:
     readable-stream "^2.0.1"
 
@@ -4005,6 +4009,10 @@ typescript@1.8.10:
 typescript@1.8.9:
   version "1.8.9"
   resolved "https://registry.yarnpkg.com/typescript/-/typescript-1.8.9.tgz#b3b3a74059fd31cbd3ecad95d62465939e7ed5fa"
+
+typescript@^2.0.10:
+  version "2.0.10"
+  resolved "https://registry.yarnpkg.com/typescript/-/typescript-2.0.10.tgz#ccdd4ed86fd5550a407101a0814012e1b3fac3dd"
 
 uglify-js@2.4.19:
   version "2.4.19"

@@ -22,6 +22,7 @@ System.config({
     "jquery-validation": "github:jzaefferer/jquery-validation@1.15.1",
     "jquery-validation-unobtrusive": "github:aspnet/jquery-validation-unobtrusive@3.2.6",
     "react": "npm:react@15.4.1",
+    "react-dom": "npm:react-dom@15.4.1",
     "twbs/bootstrap": "github:twbs/bootstrap@4.0.0-alpha",
     "github:aspnet/jquery-validation-unobtrusive@3.2.6": {
       "jquery-validation": "github:jzaefferer/jquery-validation@1.15.1"
@@ -192,6 +193,13 @@ System.config({
     },
     "npm:punycode@1.3.2": {
       "process": "github:jspm/nodelibs-process@0.1.2"
+    },
+    "npm:react-dom@15.4.1": {
+      "fbjs": "npm:fbjs@0.8.6",
+      "loose-envify": "npm:loose-envify@1.3.0",
+      "object-assign": "npm:object-assign@4.1.0",
+      "process": "github:jspm/nodelibs-process@0.1.2",
+      "react": "npm:react@15.4.1"
     },
     "npm:react@15.4.1": {
       "fbjs": "npm:fbjs@0.8.6",
