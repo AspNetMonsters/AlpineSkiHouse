@@ -1,7 +1,7 @@
 {
     "compilerOptions": {
         "module": "system",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "removeComments": true,
         "preserveConstEnums": true,
         "jsx": "react",
