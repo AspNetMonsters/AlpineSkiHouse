@@ -61,7 +61,9 @@ class App extends Component<any, any> {
         this.getUsers();
     }
     getUsers() {
-        fetch("/Admin/api/Users", { credentials: "include" }).then((r) => r.json()).then((users) => this.setState({ users: users }));
+        fetch("/Admin/api/Users", { credentials: "include" })
+            .then((r) => r.json())
+            .then((users) => this.setState({ users: users }));
     }
     render() {
         return (
