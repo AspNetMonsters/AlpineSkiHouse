@@ -22,7 +22,7 @@ This is the example project for the Microsoft Press book ASP.Net Core Applicatio
     }
   }
   ```
-4. Restore packages. 
+4. Run commands to restore JavaScript packages in the `src/AlpineSkiHouse.Web` directory. 
   ```
     yarn install
     bower install
