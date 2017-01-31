@@ -90,6 +90,7 @@
 
   "publishOptions": {
     "include": [
+      "Areas/**/*.cshtml",
       "wwwroot",
       "Views",
       "appsettings.json",

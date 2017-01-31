@@ -20,7 +20,7 @@ var sourceroot = "./Scripts/"
 var paths = {
     loader: "jspm_packages/**/*.js",
     loaderConfig: "Scripts/jspmconfig.js",
-    ts: sourceroot + "**/*.ts",
+    ts: sourceroot + "**/*.ts*",
     tsDefintionFiles: "npm_modules/@types/**/*.d.ts",
     minJs: webroot + "js/**/*.min.js",
     sass: "style/**/bootstrap-alpine.scss",
@@ -56,7 +56,8 @@ gulp.task("stage-loader", function () {
 gulp.task("typescript", function(){
     return gulp.src([paths.tsDefintionFiles, paths.ts, "!" + paths.minJs], { base: "." })
         .pipe(typescript({
-            module: "system"
+            module: "system",
+            jsx: "react"
         }))
         .pipe(rename((pathObj, file) => {
             return pathObj.join(

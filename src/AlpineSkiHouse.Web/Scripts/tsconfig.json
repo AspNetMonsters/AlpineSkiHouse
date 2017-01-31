@@ -1,10 +1,16 @@
 {
     "compilerOptions": {
         "module": "system",
-        "noImplicitAny": true,
+        "noImplicitAny": false,
         "removeComments": true,
-        "preserveConstEnums": true
+        "preserveConstEnums": true,
+        "jsx": "react",
+        "moduleResolution": "node",
+        "typeRoots": [
+            "../node_modules/@types"
+        ]
     }
+    
     
     
 }

@@ -1,7 +1,5 @@
 ﻿@using Microsoft.AspNetCore.Mvc.Localization
 
-@inject IHtmlLocalizer<SharedResources> SharedLocalizer
-
 <!DOCTYPE html>
 <html>
 
@@ -9,7 +7,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <title>@ViewData["Title"] - @SharedLocalizer["AlpineSkiHouse"]</title>
+    <title>@ViewData["Title"]</title>
 
     <environment names="Development">
         <link rel="stylesheet" href="~/lib/tether/dist/css/tether.css" />
@@ -20,7 +18,6 @@
     </environment>
     <script src="~/jspm_packages/system.js"></script>
     <script src="~/js/jspmconfig.js"></script>
-    @Html.ApplicationInsightsJavaScript(TelemetryConfiguration)
 </head>
 
 <body>
@@ -31,13 +28,11 @@
             <li class="nav-item"><a class="nav-link" asp-controller="Conditions" asp-action="Index">Hill Conditions</a></li>
             <li class="nav-item"><a class="nav-link" asp-controller="Home" asp-action="Contact">Contact</a></li>
         </ul>
-        @await Html.PartialAsync("_LoginPartial")
     </nav>
 
     <div class="container body-content">
         @RenderBody()
         <hr />
-        @await Component.InvokeAsync("CallCenterStatus")
         <footer>
             <p>
                 @await Html.PartialAsync("_CurrentLanguage") &copy; @DateTime.Now.Year.ToString() - AlpineSkiHouse

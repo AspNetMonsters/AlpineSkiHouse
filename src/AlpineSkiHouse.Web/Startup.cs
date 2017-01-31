@@ -187,6 +187,10 @@ namespace AlpineSkiHouse
 
             app.UseMvc(routes =>
             {
+                routes.MapRoute(name: "areaRoute",
+                     template: "{area:exists}/{controller=Home}/{action=Index}");
+
+
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
