@@ -1,13 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.IO;
+﻿using Microsoft.Azure.WebJobs;
+using System;
 using System.Linq;
-using System.Threading.Tasks;
-using Microsoft.Extensions.Configuration;
-using Microsoft.WindowsAzure.Storage;
-using Newtonsoft.Json.Linq;
-using ImageProcessorCore;
-using Microsoft.Azure.WebJobs;
 
 namespace AlpineSkiHouse.WebJobs
 {

@@ -1,14 +1,14 @@
-System.register(["chart"], function(exports_1, context_1) {
+System.register(["chart"], function (exports_1, context_1) {
     "use strict";
     var __moduleName = context_1 && context_1.id;
-    var chart_1;
-    var MetersSkied;
+    var chart_1, MetersSkied;
     return {
-        setters:[
+        setters: [
             function (chart_1_1) {
                 chart_1 = chart_1_1;
-            }],
-        execute: function() {
+            }
+        ],
+        execute: function () {
             MetersSkied = (function () {
                 function MetersSkied(container) {
                     this.labels = ["November", "December", "January", "February", "March", "April"];
@@ -55,5 +55,5 @@ System.register(["chart"], function(exports_1, context_1) {
             }());
             exports_1("MetersSkied", MetersSkied);
         }
-    }
+    };
 });

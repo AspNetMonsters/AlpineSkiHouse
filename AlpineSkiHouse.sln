@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 15
+VisualStudioVersion = 15.0.27703.1
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AlpineSkiHouse.Web", "src\AlpineSkiHouse.Web\AlpineSkiHouse.Web.xproj", "{52379083-3A1C-473A-B66B-0EC5D401736B}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A41B3F85-B828-4569-823A-E0850D24E01D}"
-	ProjectSection(SolutionItems) = preProject
-		global.json = global.json
-	EndProjectSection
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AlpineSkiHouse.Web.Test", "test\AlpineSkiHouse.Web.Test\AlpineSkiHouse.Web.Test.xproj", "{C47DD736-721B-4E16-8255-6AF6B3FD2307}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlpineSkiHouse.Web", "src\AlpineSkiHouse.Web\AlpineSkiHouse.Web.csproj", "{52379083-3A1C-473A-B66B-0EC5D401736B}"
 EndProject
-Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "AlpineSkiHouse.WebJobs", "src\AlpineSkiHouse.WebJobs\AlpineSkiHouse.WebJobs.xproj", "{81C7D405-C676-480C-88AA-9A270D28D903}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlpineSkiHouse.Web.Test", "test\AlpineSkiHouse.Web.Test\AlpineSkiHouse.Web.Test.csproj", "{C47DD736-721B-4E16-8255-6AF6B3FD2307}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AlpineSkiHouse.WebJobs", "src\AlpineSkiHouse.WebJobs\AlpineSkiHouse.WebJobs.csproj", "{81C7D405-C676-480C-88AA-9A270D28D903}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,5 +32,8 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {E6A0F4C0-9D1E-4D5C-BC35-82650881F55D}
 	EndGlobalSection
 EndGlobal
