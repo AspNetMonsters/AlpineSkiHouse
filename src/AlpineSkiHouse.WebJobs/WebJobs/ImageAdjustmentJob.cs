@@ -1,10 +1,8 @@
-﻿using ImageProcessorCore;
+﻿using ImageProcessor;
 using Microsoft.Azure.WebJobs;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace AlpineSkiHouse.WebJobs.WebJobs
 {
@@ -15,13 +13,11 @@ namespace AlpineSkiHouse.WebJobs.WebJobs
             [Blob("cardimages/{queueTrigger}", FileAccess.Read)] Stream imageStream,
             [Blob("processed/{queueTrigger}", FileAccess.Write)] Stream resizedImageStream)
         {
-            var image = new Image(imageStream);
-
-            var resizedImage = image
-                .Resize(100, 0)
-                .Grayscale(GrayscaleMode.Bt709);
-
-            resizedImage.SaveAsJpeg(resizedImageStream);
+            var imageFactory = new ImageFactory();
+            imageFactory.Load(imageStream)
+                .Resize(new System.Drawing.Size(100, 0))
+                .Filter(matrixFilter: ImageProcessor.Imaging.Filters.Photo.MatrixFilters.GreyScale)
+                .Save(resizedImageStream);
         }
     }
 }
