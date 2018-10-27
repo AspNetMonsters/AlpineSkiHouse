@@ -9,7 +9,7 @@ This is the example project for the Microsoft Press book ASP.Net Core Applicatio
 1. Open the solution file.
 1. Add a user secrets like :
 
-    ```javascript
+    ```json
     {
         "Authentication": {
             "Facebook": {
