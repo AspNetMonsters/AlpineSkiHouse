@@ -8,7 +8,6 @@
     <PackageId>AlpineSkiHouse.Web</PackageId>
     <UserSecretsId>aspnet-AlpineSkiHouse-4c485a7e-b4ac-4816-8cf5-4e2568b8f069</UserSecretsId>
     <RuntimeFrameworkVersion>1.0.4</RuntimeFrameworkVersion>
-    <PackageTargetFallback>$(PackageTargetFallback);dotnet5.6;portable-net45+win8</PackageTargetFallback>
   </PropertyGroup>
 
   <ItemGroup>
