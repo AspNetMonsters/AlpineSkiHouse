@@ -32,7 +32,7 @@ This is the example project for the Microsoft Press book ASP.Net Core Applicatio
     jspm install
     ```
 
-    >_Note:_ This step requires that yarn, bower and jpsm are all installed globally. This is typically done using the node package manager (npm) that ships as part of [node](https://nodejs.org/en/).
+    _Note:_ This step requires that yarn, bower and jpsm are all installed globally. This is typically done using the node package manager (npm) that ships as part of [node](https://nodejs.org/en/).
 
     ```bash
     npm install yarn -g
@@ -40,14 +40,14 @@ This is the example project for the Microsoft Press book ASP.Net Core Applicatio
     npm install jspm -g
     ```
 
-    >_Note the second:_ Some people have reported issues running against 6.x.x versions of node. The image minification plugin has an upstream dependency on a 4.x.x series node. To solve this you can install a 4.x.x version of node (I'd recommend using https://github.com/creationix/nvm to manage node versions) or you can strip out the image minificaiton from the gulp file and packages.json file. The bug can be found at https://github.com/AspNetMonsters/AlpineSkiHouse/issues/101
+    _Note the second:_ Some people have reported issues running against 6.x.x versions of node. The image minification plugin has an upstream dependency on a 4.x.x series node. To solve this you can install a 4.x.x version of node (I'd recommend using https://github.com/creationix/nvm to manage node versions) or you can strip out the image minificaiton from the gulp file and packages.json file. The bug can be found at https://github.com/AspNetMonsters/AlpineSkiHouse/issues/101
 
 1. Run gulp
     ```bash
     gulp
     ```
 
-    >_Note:_ This step requires that gulp is installed globally: `npm install gulp -g`
+    _Note:_ This step requires that gulp is installed globally: `npm install gulp -g`
 
 1. Run the solution in visual studio
 
